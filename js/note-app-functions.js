@@ -17,37 +17,19 @@ const renderNotes = function (notes, filters) {
         return note.title.toLowerCase().includes(filters.searchText.toLowerCase());
     });
 
-    console.log(filteredNotes);
+    document.querySelector('#notes-list').innerHTML = '';
+
+    filteredNotes.forEach(function (note) {
+        // Create Note Element
+        const noteElement = document.createElement('div');
+        noteElement.textContent = note.title;
+
+
+
+        // Add Element to Note List
+        const notesList = document.querySelector('#notes-list');
+        notesList.appendChild(noteElement);
+    });
     
-    
-    // // Create Note Element
-    // const noteElement = document.createElement('div');
-
-    // // Create Checkbox Completed
-    // const checkboxCompleted = document.createElement('input');
-    // checkboxCompleted.setAttribute('type', 'checkbox');
-    // checkboxCompleted.checked = note.completed;
-    // noteElement.appendChild(checkboxCompleted);
-
-    // // Create Due Date
-    // const dueDate = document.createElement('span');
-    // dueDate.textContent = note.dueDate;
-    // noteElement.appendChild(dueDate);
-
-    // // Create Title Element
-    // const titleElement = document.createElement('span');
-    // titleElement.textContent = note.title;
-    // noteElement.appendChild(titleElement);
-    
-    // // Create Description Element
-    // const descriptionElement = document.createElement('');
-    // descriptionElement.textContent = note.description;
-    // noteElement.appendChild(descriptionElement);
-
-    // // Create Priority Element
-    // const priorityElement = document.createElement('span');
-    // priorityElement.textContent = note.priority;
-    // noteElement.appendChild(priorityElement);
-
-    // notesList.appendChild(noteElement);
+  
 }
