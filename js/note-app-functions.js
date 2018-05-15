@@ -12,6 +12,18 @@ const getSavedNotes = () => {
     }
 }
 
+// Delete Note
+const deleteNote = function (id) {
+    const noteIndex = notes.findIndex(function (note) {
+        return note.id === id;
+    });
+
+    if (noteIndex > -1) {
+        notes.splice(noteIndex, 1)
+    }
+}
+
+// Filter and Render Notes
 const renderNotes = function (notes, filters) {
     const filteredNotes = notes.filter(function (note) {
         return note.title.toLowerCase().includes(filters.searchText.toLowerCase());
@@ -22,7 +34,37 @@ const renderNotes = function (notes, filters) {
     filteredNotes.forEach(function (note) {
         // Create Note Element
         const noteElement = document.createElement('div');
-        noteElement.textContent = note.title;
+
+        // Create Checkbox
+        const checkboxCompleted = document.createElement('input');
+        checkboxCompleted.setAttribute('type', 'checkbox');
+        checkboxCompleted.checked = note.completed;
+        noteElement.appendChild(checkboxCompleted);
+
+        // Create Title
+        const noteTitle = document.createElement('span');
+        noteTitle.textContent = note.title;
+        noteElement.appendChild(noteTitle);
+
+        // Create Description
+        const noteDescription = document.createElement('span');
+        noteDescription.textContent = note.description;
+        noteElement.appendChild(noteDescription);
+
+        // Create Priority
+        const notePriority = document.createElement('span');
+        notePriority.textContent = note.priority;
+        noteElement.appendChild(notePriority);
+
+        // Create Delete Button
+        const noteDeleteBtn = document.createElement('button');
+        noteDeleteBtn.textContent = 'x';
+        noteElement.appendChild(noteDeleteBtn);
+        noteDeleteBtn.addEventListener('click', function (e) {
+            deleteNote(note.id);
+            saveNotes(notes);
+            renderNotes(notes, filters);
+        });
 
 
 
