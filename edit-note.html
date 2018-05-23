@@ -6,14 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/css?family=Overpass:300,400,600,700" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    <title>Add Note</title>
+    <title>Edit Note</title>
 </head>
 <body>
     <form  id="add-note">
         <label for="title">Title</label>
         <input type="text" id="title" name="title" placeholder="Note Title">
         <label for="description">Description</label>
-        <input type="text" id="description" name="description"> 
+        <textarea type="text" id="description" name="description"></textarea>
         <label for="priority">Priority</label>
         <select name="priority" id="priority" name="priority">
             <option value="1">1</option>
@@ -21,12 +21,13 @@
             <option value="3">3</option>
         </select>
         <label for="date"></label>
-        <input type="date" id="date" name="dueDate">
-        <button>submit</button>
-        <button>reset</button>
+        <input type="date" id="due-date" name="dueDate">
+        <button>save</button>
     </form>
+    <button id="delete-note">Delete Note</button>
+    <button id="show-notes">Show all Notes</button>
     <script src="js/uuidv4.js"></script>
     <script src="js/note-app-functions.js"></script>
-    <script src="js/note-add.js"></script>
+    <script src="js/edit-note.js"></script>
 </body>
 </html>

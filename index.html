@@ -11,8 +11,8 @@
 <body>
     <header>
         <div class="header-area">
-            <button>Create new Note</button>
-            <select name="choose-style" id="">
+            <button id="create-note">Create new Note</button>
+            <select name="choose-style" id="style-switcher">
                 <option value="white">white</option>
                 <option value="black">black</option>
             </select>
@@ -20,17 +20,20 @@
     </header>
     <section>
         <div class="sortingbar-area">
-            <input type="text" id="search-text" placeholder="Search Note">
-            <button>by finisch Date</button>
+            <input type="text" id="search-text" placeholder="Search Note Title">
+            <button>by finish Date</button>
             <button>by created Date</button>
             <button>by Importance</button>
             <button>Show finished</button>
         </div>
     </section>
     <section>
-        <div id="notes-list">
-        </div>
+        <div class="notes-list"></div>
+        <script id="notes-list" type="text/x-handlebars-template">
+        
+        </script>
     </section>
+    <script src="js/handlebars-v4.0.11"></script>
     <script src="js/uuidv4.js"></script>
     <script src="js/note-app-functions.js"></script>
     <script src="js/note-app.js"></script>

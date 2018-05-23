@@ -23,17 +23,37 @@ const deleteNote = function (id) {
     }
 }
 
+// Edit Note
+const editNote = function (id) {
+    const noteIndex = notes.findIndex(function (note) {
+        return note.id === id;
+    });
+
+    if (noteIndex > -1) {
+        console.log(id);
+        
+        location.assign(`./edit-note.html#${id}`);
+    }
+
+    
+}
+
 // Filter and Render Notes
 const renderNotes = function (notes, filters) {
     const filteredNotes = notes.filter(function (note) {
         return note.title.toLowerCase().includes(filters.searchText.toLowerCase());
     });
 
+    // Remove all Notes from #notes-list
     document.querySelector('#notes-list').innerHTML = '';
 
     filteredNotes.forEach(function (note) {
         // Create Note Element
-        const noteElement = document.createElement('div');
+        const noteElement = document.createElement('a');
+        noteElement.setAttribute('class', 'note-element')
+        noteElement.addEventListener('dblclick', function (e) {
+            editNote(note.id)
+        });
 
         // Create Checkbox
         const checkboxCompleted = document.createElement('input');
@@ -65,8 +85,6 @@ const renderNotes = function (notes, filters) {
             saveNotes(notes);
             renderNotes(notes, filters);
         });
-
-
 
         // Add Element to Note List
         const notesList = document.querySelector('#notes-list');
