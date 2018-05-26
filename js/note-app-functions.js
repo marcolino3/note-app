@@ -20,8 +20,9 @@ const renderUI = function () {
 
 // Increment Priority
 const incrementPriority = function (id) {
+    const maxPriority = 3;
     notes.filter(function (note) {
-        if (note.id === id) {
+        if (note.id === id && note.priority < 3) {
             note.priority++;
         }
     });
@@ -30,7 +31,7 @@ const incrementPriority = function (id) {
 // Decrement Priority
 const decrementPriority = function (id) {
     notes.filter(function (note) {
-        if (note.id === id) {
+        if (note.id === id && note.priority > 0) {
             note.priority--;
         }
     });
@@ -43,22 +44,18 @@ const setPriorityColor = function (id) {
 // Set Completed
 const setCompleted = function (id) {
     notes.filter(function (note) {
-        console.log(note.id);
-        console.log(id);
         if (note.id === id) {
             note.completed = !note.completed;
         }
     });
 }
 
-
-
 // Delete Note
 const deleteNote = function (id) {
     const noteIndex = notes.findIndex(function (note) {
         return note.id === id;
     });
-
+    
     if (noteIndex > -1) {
         notes.splice(noteIndex, 1)
     }

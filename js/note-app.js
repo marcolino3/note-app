@@ -29,6 +29,12 @@ document.querySelector('.notes').addEventListener('click', function (e) {
         setCompleted(e.target.dataset.id);
         renderUI();
     }
+
+    // Delete Note
+    if (e.target.className === 'note__delete-btn-x') {
+        deleteNote(e.target.dataset.id);
+        renderUI();
+    }
 });
 
 

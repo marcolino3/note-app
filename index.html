@@ -29,6 +29,11 @@
             <div class="note__description">{{ description }}</div>
             <div class="note__created-date">Note created: {{ createdDate }}</div>
             <div class="note__edited-date">Note edited: {{ editedDate }}</div>
+            <div class="note__delete">
+                <div class="note__delete-btn" data-id="{{ id }}">
+                    <span class="note__delete-btn-x" data-id="{{ id }}">x</span>
+                </div>
+            </div>
             <div class="note__read-more-btn">
                 <div class="note__read-more-toggle">+</div>
             </div>
