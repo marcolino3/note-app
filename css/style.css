@@ -28,12 +28,13 @@ body {
 
 .note__container {
     width: 80%;
-    margin: 0 auto;
+    margin: 0 auto 40px auto;
     min-height:100px;
     background: #f5f5f5;
     display: grid;
     grid-template-columns: 90px auto 200px 200px repeat(3, 30px);
     grid-template-rows: 4px 50px 40px auto 8px 15px 8px;
+    box-shadow: 2px 3px 4px 0 #000;
 }
 
 .note__priority-line {
@@ -57,14 +58,15 @@ body {
     position: relative;
     left: 25px;
     top: 30px;
+    cursor: pointer;
 }
-.note__completed-checkmark {
+.note__completed-checked {
     display:inline-block;
     position: relative;
     left: 13px;
     top: 2px;
 }
-.note__completed-checkmark:after {
+.note__completed-checked:after {
     /*Add another block-level blank space*/
   content: '';
   display: block;
@@ -72,7 +74,7 @@ body {
   width: 4px;
   height: 12px;
   /*Add a white border on the bottom and left, creating that 'L' */
-  border: solid #000;
+  border: solid #393A4D;
   border-width: 0 2px 2px 0;
   /*Rotate the L 45 degrees to turn it into a checkmark*/
   transform: rotate(45deg);
@@ -109,6 +111,7 @@ body {
     text-align: center;
     grid-column: 5/6;
     grid-row: 3/4;
+    cursor: pointer;
 }
 
 .note__priority-value {
@@ -123,6 +126,15 @@ body {
     text-align: center;
     grid-column: 7/8;
     grid-row: 3/4;
+    cursor: pointer;
+}
+
+.note__priority-1 {
+    background: red;
+}
+
+.note__priority-2 {
+    background: yellow;
 }
 
 .note__description {

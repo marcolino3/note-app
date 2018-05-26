@@ -1,3 +1,64 @@
+// Model
+class Note {
+    constructor(
+        id,
+        title, 
+        description, 
+        priority,
+        dueDate,
+        completed,
+        createdDate,
+        editedDate) { 
+            this.id = id;
+            this.title = title;
+            this.description = description;
+            this.priority = priority;
+            this.dueDate = dueDate;
+            this.completed = false;
+            this.createdDate = createdDate;
+            this.editedDate = editedDate;
+    }
+
+    // Getter
+    getTitle() {
+        return this.title;
+    }
+    getDescription() {
+        return this.description;
+    }
+    getPriority() {
+        return this.priority;
+    }
+    getDueDate() {
+        return this.dueDate;
+    }
+    getCreatedDate() {
+        return this.createdDate;
+    }
+    getEditedDate() {
+        return this.editedDate;
+    }
+
+    // Setter
+    setTitle(title) {
+        this.title = title;
+    }
+    setDescription(description) {
+        this.description = description;
+    }
+    setPriority(priority) {
+        this.priority = priority;
+    }
+    setDueDate(dueDate) {
+        this.dueDate = dueDate;
+    }
+    setEditedDate() {
+        this.editedDate = this.editedDate;
+    }
+}
+
+
+
 // NoteId based on the hash
 const noteId = location.hash.substr(1);
 console.log(noteId);
@@ -39,16 +100,19 @@ dueDateElement.value = note.dueDate;
 document.querySelector('#add-note').addEventListener('submit', function (e) {
     e.preventDefault()
 
-    notes.push( {
-        id: uuidv4(),
-        title: e.target.elements.title.value,
-        description: e.target.elements.description.value,
-        priority: e.target.elements.priority.value,
-        dueDate: e.target.elements.dueDate.value,
-        createDate: new Date(),
-        editDate: Date.now(),
-        completed: false
-    });
+    const note = new Note(
+        uuidv4(),
+        e.target.elements.title.value,
+        e.target.elements.description.value,
+        e.target.elements.priority.value,
+        Date.now(),
+        false,
+        Date.now(),
+        Date.now()
+    );
+
+    notes.push(note);
+
     saveNotes(notes);
     location.assign('./index.html');
 });
@@ -56,8 +120,6 @@ document.querySelector('#add-note').addEventListener('submit', function (e) {
 // Delete Note
 document.querySelector('#delete-note').addEventListener('click', function (e) {
     deleteNote(note.id);
-    console.log(note.id);
-    
 });
 
 // Button Show All Notes

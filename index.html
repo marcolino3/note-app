@@ -7,6 +7,35 @@
     <link href="https://fonts.googleapis.com/css?family=Overpass:100,200,300,400,600,700" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <title>Note App</title>
+
+    <script src="js/handlebars-v4.0.11.js"></script>
+    <script id="notes-list" type="text/x-handlebars-template">
+        {{#each this}}
+        <div class="note__container" >
+            <div class="note__priority-line"></div>
+            <div class="note__completed">
+                <div class="note__completed-radio-btn" data-id="{{ id }}">
+                    {{#if completed}}
+                    <div class="note__completed-checked" data-id="{{ id }}"></div>
+                    {{/if}}
+                </div> 
+            </div>
+            <div class="note__title">{{ title }}</div>
+            <div class="note__due-date">{{ dueDate}}</div>
+            <div class="note__priority-label">Priority</div>
+            <div class="note__priority-btn-plus" data-id="{{ id }}">+</div>
+            <div class="note__priority-btn-minus" data-id="{{ id }}">-</div>
+            <div class="note__priority-value">{{ priority }}</div>
+            <div class="note__description">{{ description }}</div>
+            <div class="note__created-date">Note created: {{ createdDate }}</div>
+            <div class="note__edited-date">Note edited: {{ editedDate }}</div>
+            <div class="note__read-more-btn">
+                <div class="note__read-more-toggle">+</div>
+            </div>
+        </div>
+        {{/each}}
+    </script>
+
 </head>
 <body>
     <header class="header__wrapper">
@@ -26,41 +55,15 @@
                     <button>Show finished</button>
                 </div>
     </section>
-  
     <section>
-        <div class="note__container">
-            <div class="note__priority-line"></div>
-            <div class="note__completed">
-                <div class="note__completed-radio-btn">
-                    <div class="note__completed-checkmark"></div>
-                </div> 
-            </div>
-            <div class="note__title">Umbau Küche</div>
-            <div class="note__due-date">Sonntag, 20. Juni 2018</div>
-            <div class="note__priority-label">Priority</div>
-            <div class="note__priority-btn-plus">+</div>
-            <div class="note__priority-btn-minus">-</div>
-            <div class="note__priority-value">1</div>
-            <div class="note__description">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. 
-                Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. 
-                Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</div>
-            <div class="note__created-date">Note created: Freitag, 17. Juni 2018</div>
-            <div class="note__edited-date">Note edited: Samstag, 18. Juni 2018</div>
-            <div class="note__read-more-btn">
-                <div class="note__read-more-toggle">+</div>
-            </div>
-        </div>
-    </section>
-    <section>
-        <div class="notes-list">
+        <div class="notes">
             
         </div>
-        <script id="notes-list" type="text/x-handlebars-template">
+       
         
-        </script>
     </section>
-    <!-- <script src="js/handlebars-v4.0.11"></script> -->
+    
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.amd.min.js"></script> -->
     <script src="js/uuidv4.js"></script>
     <script src="js/note-app-functions.js"></script>
     <script src="js/note-app.js"></script>

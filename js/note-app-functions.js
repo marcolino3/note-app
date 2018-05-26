@@ -12,6 +12,47 @@ const getSavedNotes = () => {
     }
 }
 
+// renderUI
+const renderUI = function () {
+    renderNotes(notes, filters);
+    saveNotes(notes);
+}
+
+// Increment Priority
+const incrementPriority = function (id) {
+    notes.filter(function (note) {
+        if (note.id === id) {
+            note.priority++;
+        }
+    });
+}; 
+
+// Decrement Priority
+const decrementPriority = function (id) {
+    notes.filter(function (note) {
+        if (note.id === id) {
+            note.priority--;
+        }
+    });
+}
+
+// Set Priority Color
+const setPriorityColor = function (id) {
+}
+
+// Set Completed
+const setCompleted = function (id) {
+    notes.filter(function (note) {
+        console.log(note.id);
+        console.log(id);
+        if (note.id === id) {
+            note.completed = !note.completed;
+        }
+    });
+}
+
+
+
 // Delete Note
 const deleteNote = function (id) {
     const noteIndex = notes.findIndex(function (note) {
@@ -30,13 +71,10 @@ const editNote = function (id) {
     });
 
     if (noteIndex > -1) {
-        console.log(id);
-        
         location.assign(`./edit-note.html#${id}`);
-    }
-
-    
+    } 
 }
+
 
 // Filter and Render Notes
 const renderNotes = function (notes, filters) {
@@ -45,51 +83,10 @@ const renderNotes = function (notes, filters) {
     });
 
     // Remove all Notes from #notes-list
-    document.querySelector('#notes-list').innerHTML = '';
+    document.querySelector('.notes').innerHTML = '';
 
-    filteredNotes.forEach(function (note) {
-        // Create Note Element
-        const noteElement = document.createElement('a');
-        noteElement.setAttribute('class', 'note-element')
-        noteElement.addEventListener('dblclick', function (e) {
-            editNote(note.id)
-        });
-
-        // Create Checkbox
-        const checkboxCompleted = document.createElement('input');
-        checkboxCompleted.setAttribute('type', 'checkbox');
-        checkboxCompleted.checked = note.completed;
-        noteElement.appendChild(checkboxCompleted);
-
-        // Create Title
-        const noteTitle = document.createElement('span');
-        noteTitle.textContent = note.title;
-        noteElement.appendChild(noteTitle);
-
-        // Create Description
-        const noteDescription = document.createElement('span');
-        noteDescription.textContent = note.description;
-        noteElement.appendChild(noteDescription);
-
-        // Create Priority
-        const notePriority = document.createElement('span');
-        notePriority.textContent = note.priority;
-        noteElement.appendChild(notePriority);
-
-        // Create Delete Button
-        const noteDeleteBtn = document.createElement('button');
-        noteDeleteBtn.textContent = 'x';
-        noteElement.appendChild(noteDeleteBtn);
-        noteDeleteBtn.addEventListener('click', function (e) {
-            deleteNote(note.id);
-            saveNotes(notes);
-            renderNotes(notes, filters);
-        });
-
-        // Add Element to Note List
-        const notesList = document.querySelector('#notes-list');
-        notesList.appendChild(noteElement);
-    });
+    const customerTemplateText = document.getElementById('notes-list').innerHTML;
+    const createCustomersHTML = Handlebars.compile(customerTemplateText);
+    document.querySelector('.notes').insertAdjacentHTML("beforeend", createCustomersHTML(filteredNotes));
+};
     
-  
-}

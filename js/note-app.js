@@ -1,10 +1,36 @@
-let notes = getSavedNotes()
+let notes = getSavedNotes();
 
 const filters = {
     searchText: ''
 }
 
-renderNotes(notes, filters)
+
+renderUI();
+
+
+
+// EventListener on Note
+document.querySelector('.notes').addEventListener('click', function (e) {
+
+    // Increment Priority
+    if (e.target.className === 'note__priority-btn-plus') {
+        incrementPriority(e.target.dataset.id);
+        renderUI();
+    }
+
+    // Decrement Priority
+    if (e.target.className === 'note__priority-btn-minus') {
+        decrementPriority(e.target.dataset.id);
+        renderUI();
+    }
+
+    // Set Completed
+    if (e.target.className === 'note__completed-radio-btn'|| 'note__completed-checked') {
+        setCompleted(e.target.dataset.id);
+        renderUI();
+    }
+});
+
 
 
 // Button Create Note
@@ -34,3 +60,5 @@ layountBtn.addEventListener('change', function () {
     head.appendChild(styleBlack);
    
 });
+
+    
