@@ -8,9 +8,10 @@ class Controller {
 
     async initTemplates() {
         try {
-            this.noteTemplate = await Handlebars.compile($("#notes-list").html());
-    
-
+            this.noteTemplate =  Handlebars.compile($("#notes-list").html());
+            
+            const x = await this.serviceContext.noteService.getAllNotes();
+            debugger;
             $('.notes').html(this.noteTemplate(await this.serviceContext.noteService.getAllNotes()));
         } catch (err) {
 
@@ -60,7 +61,7 @@ class Controller {
          */
 
         // Create Note Button
-        $('#create-note').on('click', () => location.assign('edit-note.html'));
+        $('#create-note').on('click', () => location.assign('edit.html'));
 
         // Events on Notes List
         $('.notes').on('click',(e) => {

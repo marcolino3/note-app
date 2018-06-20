@@ -9,9 +9,8 @@
     <link rel="stylesheet" href="css/style.css">
     <title>Note App</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
-    <!-- <script src="js/helper/handlebars-v4.0.11.js"></script> -->
     <script id="notes-list" type="text/x-handlebars-template">
-        {{#each this}}
+        {{#each notes}}
         <div class="note__container" >
             <div class="note__priority-line"></div>
             <div class="note__completed">

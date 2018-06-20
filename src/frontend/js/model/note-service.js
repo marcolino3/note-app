@@ -1,8 +1,6 @@
 class NoteService {
     constructor(serviceContext) {
-        this.serviceContext = serviceContext;
-
-        this.notes = this.getAllNotes() || [];        
+        this.serviceContext = serviceContext;        
     }
 
     async getAllNotes() {

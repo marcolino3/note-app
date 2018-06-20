@@ -11,9 +11,9 @@ class Persistance {
     async readFromStorage() {
 
         try {
-            const result = await fetch('http://localhost:3000/notes/');
-            const notes = result.json();
-            console.log(notes);
+            const response = await fetch('http://localhost:3000/notes/');
+            const notes = await response.json();
+            return notes;
         } catch (err) {
             console.log('Unable to fetch data from database');
         }
