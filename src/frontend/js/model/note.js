@@ -7,12 +7,11 @@ class Note {
         priority,
         dueDate
     ) {
-        this.id = Date.now();
         this.title = title;
         this.description = description;
         this.priority = priority;
-        this.dueDate = dueDate;
-        this.completed = true;
+        this.dueDate = Date.parse(dueDate);
+        this.completed = false;
         this.completedAt = null;
         this.createdAt = Date.now();
         this.editedAt = Date.now();

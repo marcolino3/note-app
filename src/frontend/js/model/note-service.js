@@ -7,43 +7,37 @@ class NoteService {
         return await this.serviceContext.persistance.readFromStorage();
     }
 
-    addNote(note) {
-        this.notes.push(note);
+    async getNote(id) {
+        const allNotes = await this.getAllNotes();
+        return await allNotes.notes.filter((note) => note._id === id);
     }
 
-    saveNotes() {
-        this.serviceContext.persistance.writeToStorage(this.notes);
-    }
-    // Todo
-    deleteNote(id) {
-        const noteIndex = this.notes.findIndex(function (note) {
-            return note.id === id;
-        });
-    
-        if (noteIndex > -1) {
-            this.notes.splice(noteIndex, 1)
-        }
-    }
-
-    // Todo
-    editNote(id) {
-        const noteIndex = notes.findIndex(function (note) {
-            return note.id === id;
-        });
-    
-        if (noteIndex > -1) {
-            location.assign(`./edit-note.html#${id}`);
-        }
-    }
-
-    toggleCompleted(id) {  
-        const noteId = id;
-        let noteIndex = this.notes.findIndex( function (note) {
-            return noteId === id;   
-        });
-
-        console.log(noteIndex);
+    async addNote(note) {
+        const allNotes = await this.getAllNotes();
+        allNotes.notes.push(note);
+        console.log(allNotes);
         
+    }
+
+    async saveNotes() {
+        await this.serviceContext.persistance.writeToStorage(this.notes);
+    }
+    
+    async deleteNote(id) { 
+        this.serviceContext.persistance.deleteNoteFromStorage(id);
+    }
+
+    async editNote(id) {
+        const selectedNote = await this.getNote(id);   
+        console.log(selectedNote);
+    }
+
+    async toggleCompleted(id) {  
+        const selectedNote = await this.getNote(id); 
+        selectedNote[0].completed = !selectedNote[0].completed; 
+        selectedNote[0].completedAt = Date.now(); 
+        selectedNote[0].editedAt = Date.now(); 
+        console.log(selectedNote);
     }
     
 }

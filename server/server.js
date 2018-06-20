@@ -29,7 +29,12 @@ app.post('/notes', (req, res) => {
     var note = new Note({
         title: req.body.title,
         description: req.body.description,
-        priority: req.body.priority
+        priority: req.body.priority,
+        dueDate: req.body.dueDate,
+        completed: req.body.completed,
+        completedAt: req.body.completedAt,
+        createdAt: req.body.createdAt,
+        editedAt: req.body.editedAt
     });
 
     // in DB abspeichern

@@ -15,17 +15,17 @@
     <section class="edit-note__wrapper"> 
             <form id="add-note">
                 <label for="title">Title</label>
-                <input type="text" id="title" name="title" placeholder="Note Title">
+                <input type="text" id="title" name="title" placeholder="Note Title" required>
                 <label for="description">Description</label>
-                <textarea type="text" id="description" name="description"></textarea>
+                <textarea type="text" id="description" name="description" required></textarea>
                 <label for="priority">Priority</label>
-                <select name="priority" id="priority" name="priority">
+                <select name="priority" id="priority" name="priority" required>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                 </select>
                 <label for="date"></label>
-                <input type="date" id="due-date" name="dueDate">
+                <input type="date" id="due-date" name="dueDate" required>
                 <input type="submit" id="save-note"></input>
             </form>
             <button id="delete-note">Delete Note</button>

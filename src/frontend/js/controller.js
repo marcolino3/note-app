@@ -10,8 +10,7 @@ class Controller {
         try {
             this.noteTemplate =  Handlebars.compile($("#notes-list").html());
             
-            const x = await this.serviceContext.noteService.getAllNotes();
-            debugger;
+            // const x = await this.serviceContext.noteService.getAllNotes();
             $('.notes').html(this.noteTemplate(await this.serviceContext.noteService.getAllNotes()));
         } catch (err) {
 
@@ -46,15 +45,13 @@ class Controller {
     
             const newNote = new Note(title, description, priority, dueDate);
             this.serviceContext.noteService.addNote(newNote);
-            this.serviceContext.noteService.saveNotes();
-            location.assign('index.html');
+            // location.assign('index.html');
 
         });
 
         // Delete Note
         $('#delete-note').on('click', (e) => {
-            console.log('delete-note');
-            
+            this.serviceContext.noteService.deleteNote(e.target.dataset.id)
         });
         /**
          * Event on index.html
@@ -69,9 +66,14 @@ class Controller {
             // Set Completed
             if (e.target.className === 'note__completed-radio-btn') {
                 this.serviceContext.noteService.toggleCompleted(e.target.dataset.id);
-                
-                // renderUI();
             }
+
+            // Delete Note
+            if (e.target.className === 'note__delete-btn') {
+                this.serviceContext.noteService.deleteNote(e.target.dataset.id);    
+            }
+
+
         });
     }
 

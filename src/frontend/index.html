@@ -8,13 +8,14 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <title>Note App</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
     <script id="notes-list" type="text/x-handlebars-template">
         {{#each notes}}
         <div class="note__container" >
             <div class="note__priority-line"></div>
             <div class="note__completed">
-                <div class="note__completed-radio-btn" data-id="{{ id }}">
+                <div class="note__completed-radio-btn" data-id="{{ _id }}">
                     {{#if completed}}
                     <i class="material-icons"></i>
                     {{/if}}
@@ -23,14 +24,14 @@
             <div class="note__title">{{ title }}</div>
             <div class="note__due-date">{{ dueDate }}</div>
             <div class="note__priority-label">Priority</div>
-            <div class="note__priority-btn-plus" data-id="{{ id }}">+</div>
-            <div class="note__priority-btn-minus" data-id="{{ id }}">-</div>
+            <div class="note__priority-btn-plus" data-id="{{ _id }}">+</div>
+            <div class="note__priority-btn-minus" data-id="{{ _id }}">-</div>
             <div class="note__priority-value">{{ priority }}</div>
             <div class="note__description">{{ description }}</div>
-            <div class="note__created-date">Note created: {{ createDate }}</div>
-            <div class="note__edited-date">Note edited: {{ editedDate }}</div>
+            <div class="note__created-date">Note created: {{ createdAt }}</div>
+            <div class="note__edited-date">Note edited: {{ editedAt }}</div>
             <div class="note__delete">
-                <div class="note__delete-btn" data-id="{{ id }}">
+                <div class="note__delete-btn" data-id="{{ _id }}">
                     <i class="material-icons">delete_outline</i>
                 </div>
             </div>
@@ -68,7 +69,7 @@
         
     </section>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+    
     <script src="js/index.js" type="module"></script>
 </body>
 </html>
