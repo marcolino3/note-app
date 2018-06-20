@@ -19,28 +19,28 @@ let Note = mongoose.model('Note', {
         type: Number,
         required: true,
         minlength: 1,
-    },
-    dueDate: {
-        type: Number,
-        required: true,
-        minlength: 1,
-    },
-    completed: {
-        type: Boolean,
-        default: false
-    },
-    completedAt: {
-        type: Number,
-        default: null
-    },
-    createdAt: {
-        type: Number,
-        default: null
-    },
-    editedAt: {
-        type: Number,
-        default: null
     }
+    // dueDate: {
+    //     type: Number,
+    //     required: true,
+    //     minlength: 1,
+    // },
+    // completed: {
+    //     type: Boolean,
+    //     default: false
+    // },
+    // completedAt: {
+    //     type: Number,
+    //     default: null
+    // },
+    // createdAt: {
+    //     type: Number,
+    //     default: null
+    // },
+    // editedAt: {
+    //     type: Number,
+    //     default: null
+    // }
 });
 
 module.exports = {Note};

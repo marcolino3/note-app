@@ -5,6 +5,6 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 // mit Datenbank verbinden
-mongoose.connect('mongodb://localhost:27017/TodoApp');
+mongoose.connect('mongodb://localhost:27017/NoteApp');
 
 module.exports = {mongoose};

@@ -6,10 +6,12 @@ class Controller {
         this.noteTemplate = null;
     }
 
-    initTemplates() {
+    async initTemplates() {
         try {
-            this.noteTemplate = Handlebars.compile($("#notes-list").html());
-        $('.notes').html(this.noteTemplate(this.serviceContext.noteService.getAllNotes()));
+            this.noteTemplate = await Handlebars.compile($("#notes-list").html());
+    
+
+            $('.notes').html(this.noteTemplate(await this.serviceContext.noteService.getAllNotes()));
         } catch (err) {
 
         }

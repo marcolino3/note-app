@@ -15,6 +15,7 @@ module.exports = {
             filename: 'index.html',
             template: './src/frontend/index.html'
         })
+
     ],
     module: {
         rules: [

@@ -16,42 +16,41 @@ const port = process.env.PORT || 3000;
 // Middleware Body Parser wandelt in JSON um
 app.use(bodyParser.json());
 
-app.get('/',function(req,res){
-    res.sendFile(path.join(__dirname+'/../dist/index.html'));
-    //__dirname : It will resolve to your project folder.
+// Middleware Public Directory
+app.use(express.static(__dirname + './../src/frontend'));
+
+// Routes
+app.get("/", function(req, res){
+    res.sendFile("index.html",  {root: __dirname + '/frontend/'});
 });
 
-app.get('/bundle.js',function(req,res){
-    res.sendFile(path.join(__dirname+'/../dist/bundle.js'));
-    //__dirname : It will resolve to your project folder.
-});
-
-
-// Post Route
-app.post('/todos', (req, res) => {
-    var todo = new Note({
-        text: req.body.text
+// Post API
+app.post('/notes', (req, res) => {
+    var note = new Note({
+        title: req.body.title,
+        description: req.body.description,
+        priority: req.body.priority
     });
 
     // in DB abspeichern
-    todo.save().then((doc) => {
+    note.save().then((doc) => {
         res.send(doc);
     }, (err) => {
         res.status(400).send(err);
     });
 });
 
-// Get Route API
-app.get('/todos', (req, res) => {
-    Todo.find().then((todos) => {
-        res.send({todos});
+// Get API
+app.get('/notes', (req, res) => {
+    Note.find().then((notes) => {
+        res.send({notes});
     }, (err) => {
         res.status(400).send(err);
     });
 });
 
-// Get /todos/12345
-app.get('/todos/:id',(req, res) => {
+// Get /notes/12345
+app.get('/notes/:id',(req, res) => {
     var id = req.params.id;
 
     // Valid id using isValid
@@ -60,12 +59,12 @@ app.get('/todos/:id',(req, res) => {
     }    
 
     // findById
-    Todo.findById(id).then((todo)=> {
-        if (!todo) {
-            return res.status(404).send();  // if no todo - send back 404 with empty body
+    Note.findById(id).then((note)=> {
+        if (!note) {
+            return res.status(404).send();  // if no note - send back 404 with empty body
         }
         // sucess
-        res.send({todo});   // if todo - send it back
+        res.send({note});   // if note - send it back
 
     }).catch((err) => { // error
         res.status(400).send(); // 400 - and send empty body back
@@ -73,8 +72,8 @@ app.get('/todos/:id',(req, res) => {
 
 });
 
-// Delete /todos/123
-app.delete('/todos/:id', (req, res) => {
+// Delete /notes/123
+app.delete('/notes/:id', (req, res) => {
 
     // get Id
     var id = req.params.id;
@@ -84,14 +83,14 @@ app.delete('/todos/:id', (req, res) => {
         return res.status(404).send();
     }
 
-    // remove todo by id
-    Todo.findByIdAndRemove(id).then((todo) => {
-        if (!todo) {
+    // remove note by id
+    Note.findByIdAndRemove(id).then((note) => {
+        if (!note) {
             res.status(404).send(); // if no doc, send 404
         }
 
         // success
-        res.send({todo}); // if doc, send doc back with 200
+        res.send({note}); // if doc, send doc back with 200
 
     }).catch((err) => {     // error
         res.status(400).send(); // 400 with empty body
@@ -100,9 +99,9 @@ app.delete('/todos/:id', (req, res) => {
 });
 
 // Patch (Update)
-app.patch('/todos/:id', (req, res) => {
+app.patch('/notes/:id', (req, res) => {
     var id = req.params.id;
-    var body = _.pick(req.body, ['text', 'completed']); // restrict properties to be changed
+    var body = _.pick(req.body, ['title', 'description', 'dueDate', 'completed']); // restrict properties to be changed
 
     // validate ID
     if (!ObjectID.isValid(id)) {
@@ -118,13 +117,13 @@ app.patch('/todos/:id', (req, res) => {
     }
 
     // Update Document
-    Todo.findByIdAndUpdate(id, {$set: body}, {new: true}).then((todo) => {
-        if (!todo) {
+    Note.findByIdAndUpdate(id, {$set: body}, {new: true}).then((note) => {
+        if (!note) {
             return res.status(404).send();
         }
 
         // success
-        res.send({todo});
+        res.send({note});
 
     }).catch((err) => { // error
         res.status(400).send();

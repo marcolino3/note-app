@@ -5,8 +5,8 @@ class NoteService {
         this.notes = this.getAllNotes() || [];        
     }
 
-    getAllNotes() {
-        return this.serviceContext.persistance.readFromStorage();
+    async getAllNotes() {
+        return await this.serviceContext.persistance.readFromStorage();
     }
 
     addNote(note) {

@@ -1,3 +1,4 @@
+
 class Persistance {
     constructor() {
 
@@ -7,14 +8,25 @@ class Persistance {
         localStorage.setItem('notes', JSON.stringify(notes));
     }
 
-    readFromStorage() {
-        const notesJSON = localStorage.getItem('notes');
+    async readFromStorage() {
 
-        if (notesJSON !== null) {
-            return JSON.parse(notesJSON);
-        } else {
-            return [];
+        try {
+            const result = await fetch('http://localhost:3000/notes/');
+            const notes = result.json();
+            console.log(notes);
+        } catch (err) {
+            console.log('Unable to fetch data from database');
         }
+        
+        
+
+    //     const notesJSON = localStorage.getItem('notes');
+
+    //     if (notesJSON !== null) {
+    //         return JSON.parse(notesJSON);
+    //     } else {
+    //         return [];
+    //     }
     }
 }
 
