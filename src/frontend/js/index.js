@@ -1,17 +1,16 @@
-import axios from 'axios';
+import Persistance from './model/persistance.js';
+import ServiceContext from './model/service-context.js';
+import Controller from './controller.js';
 
-async function getResults(query) {
+const $ = jQuery;
 
-    const proxy = 'https://cors-anywhere.herokuapp.com/';
-    const key = '06c4e505877664a06f621593fc14c3b6';
+// bootstrap dependencies (optionally, a DI container may be used for this)
+const persistance = new Persistance();
+const serviceContext = new ServiceContext(persistance);
+const controller = new Controller(serviceContext);
 
-    try {
-        const res = await axios(`${proxy}http://food2fork.com/api/search?key=${key}&q=${query}`);
-        const recipes = res.data.recipes;
-        console.log(recipes);
-    } catch (err) {
-        alert(err);
-    }
-}
+$(function() { // on DOMContent Loaded
 
-getResults('tomato pasta');
+    // initialize main controller after VIEW (html) has been loaded
+    controller.initUI();
+});

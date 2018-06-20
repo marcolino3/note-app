@@ -1,0 +1,14 @@
+* {
+    font-family: 'Overpass', sans-serif;
+    color: white;
+    background: black;
+}
+
+span {
+    padding: 5px 20px;
+}
+
+.note-element {
+    display: block;
+    cursor: pointer;
+}
