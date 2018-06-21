@@ -4,13 +4,6 @@ class Persistance {
         this.notes = 'http://localhost:3000/notes';
     }
 
-    writeToStorage(notes) {
-
-
-
-        // localStorage.setItem('notes', JSON.stringify(notes));
-    }
-
     async readNotesFromStorage() {
         try {
             const response = await fetch(this.notes);
@@ -18,6 +11,19 @@ class Persistance {
             return notes;
         } catch (err) {
             console.log('Unable to get data from database');
+        }
+    }
+
+    async readSelectedNoteFromStorage(id) {
+        try {
+            const response = await fetch(`${this.notes}/${id}`);
+            
+            const selectedNote = await response.json();
+            console.log(selectedNote);
+            
+            return selectedNote;
+        } catch (err) {
+            console.log('Unable to get selected note from database');
         }
     }
 
@@ -30,7 +36,7 @@ class Persistance {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(note)
-            })   
+            });   
         } catch (err) {
             console.log('Unable to add note to database');
         }
@@ -42,6 +48,21 @@ class Persistance {
         } catch (err) {
             console.log('Unable to delete data from database'); 
         } 
+    }
+
+    async updateNoteInStorage(note) {
+        try {
+            await fetch(`${this.notes}/${note._id}` , {
+                method: 'PATCH',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(note)
+            }); 
+        } catch (err) {
+            console.log('Unable to update note in database', err);
+        }
     }
 }
 

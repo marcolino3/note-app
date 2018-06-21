@@ -43,11 +43,7 @@ app.post('/notes', (req, res) => {
     // in DB abspeichern
     note.save().then((doc) => {
         res.send(doc);
-    }, (err) => {
-        console.log(note);
-        
-        console.log(err);
-        
+    }, (err) => {        
         res.status(400).send(err);
     });
 });
@@ -112,10 +108,13 @@ app.delete('/notes/:id', (req, res) => {
 
 // Patch (Update)
 app.patch('/notes/:id', (req, res) => {
+    
     var id = req.params.id;
-    var body = _.pick(req.body, ['title', 'description', 'dueDate', 'completed']); // restrict properties to be changed
+    var body = _.pick(req.body, ['title', 'description', 'priority', 'dueDate', 'completed']); // restrict properties to be changed
 
-    // validate ID
+    console.log(body);
+    
+        // validate ID
     if (!ObjectID.isValid(id)) {
         return res.status(404).send();
     }

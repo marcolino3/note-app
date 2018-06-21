@@ -20,9 +20,10 @@ class NoteService {
         await this.serviceContext.persistance.deleteNoteFromStorage(id);
     }
 
-    async editNote(id) {
-        const selectedNote = await this.getNote(id);   
-        console.log(selectedNote);
+    async incrementPriority(id) {
+        const selectedNote = await this.serviceContext.persistance.readSelectedNoteFromStorage(id);
+        selectedNote.note.priority++;
+        this.serviceContext.persistance.updateNoteInStorage(selectedNote.note);
     }
 
     async toggleCompleted(id) {  

@@ -75,8 +75,7 @@ class Controller {
 
             // Increment Priority
             if (e.target.className === 'note__priority-btn-plus') {
-                console.log('+ Priority', e.target.dataset.id);
-                
+                this.serviceContext.noteService.incrementPriority(e.target.dataset.id);
             }
 
         });
