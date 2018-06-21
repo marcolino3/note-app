@@ -11,13 +11,28 @@ class Persistance {
         // localStorage.setItem('notes', JSON.stringify(notes));
     }
 
-    async readFromStorage() {
+    async readNotesFromStorage() {
         try {
             const response = await fetch(this.notes);
             const notes = await response.json();
             return notes;
         } catch (err) {
             console.log('Unable to get data from database');
+        }
+    }
+
+    async addNoteToStorage(note) {
+        try {
+            await fetch(this.notes , {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(note)
+            })   
+        } catch (err) {
+            console.log('Unable to add note to database');
         }
     }
 

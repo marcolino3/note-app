@@ -9,8 +9,6 @@ class Controller {
     async initTemplates() {
         try {
             this.noteTemplate =  Handlebars.compile($("#notes-list").html());
-            
-            // const x = await this.serviceContext.noteService.getAllNotes();
             $('.notes').html(this.noteTemplate(await this.serviceContext.noteService.getAllNotes()));
         } catch (err) {
 
@@ -27,7 +25,7 @@ class Controller {
     registerEvents() {
 
         /**
-         * Events on edit-note.html
+         * Events on edit.html
          */
 
         // Show All Notes Button
@@ -35,16 +33,18 @@ class Controller {
 
         // Add Note
         $('#add-note').on('submit', (e) => {
-            console.log(e);
             
             e.preventDefault();
             const title = $('#title').val();
             const description = $('#description').val();
-            const priority = $('#priority').val();
+            const priority = Number.parseInt($('#priority').val());
             const dueDate = $('#due-date').val();
     
             const newNote = new Note(title, description, priority, dueDate);
+            console.log(newNote);
+            
             this.serviceContext.noteService.addNote(newNote);
+            
             // location.assign('index.html');
 
         });
@@ -73,6 +73,11 @@ class Controller {
                 this.serviceContext.noteService.deleteNote(e.target.dataset.id);    
             }
 
+            // Increment Priority
+            if (e.target.className === 'note__priority-btn-plus') {
+                console.log('+ Priority', e.target.dataset.id);
+                
+            }
 
         });
     }

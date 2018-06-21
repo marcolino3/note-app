@@ -4,13 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack --mode development",
-    "build": "webpack --mode production",
-    "start": "webpack-dev-server --mode development --open",
     "server": "node server/server.js",
     "db": "./mongodb/mongo/bin/mongod --dbpath ./mongodb/mongo-data",
-    "backend": "npm run db && npm run server",
-    "restart": "npm run dev && npm run server --open"
+    "backend": "npm run db && npm run server"
   },
   "author": "",
   "license": "ISC",

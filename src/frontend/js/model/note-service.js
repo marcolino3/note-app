@@ -4,7 +4,7 @@ class NoteService {
     }
 
     async getAllNotes() {
-        return await this.serviceContext.persistance.readFromStorage();
+        return await this.serviceContext.persistance.readNotesFromStorage();
     }
 
     async getNote(id) {
@@ -13,18 +13,11 @@ class NoteService {
     }
 
     async addNote(note) {
-        const allNotes = await this.getAllNotes();
-        allNotes.notes.push(note);
-        console.log(allNotes);
-        
-    }
-
-    async saveNotes() {
-        await this.serviceContext.persistance.writeToStorage(this.notes);
+        await this.serviceContext.persistance.addNoteToStorage(note);
     }
     
     async deleteNote(id) { 
-        this.serviceContext.persistance.deleteNoteFromStorage(id);
+        await this.serviceContext.persistance.deleteNoteFromStorage(id);
     }
 
     async editNote(id) {

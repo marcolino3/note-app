@@ -26,6 +26,9 @@ app.get("/", function(req, res){
 
 // Post API
 app.post('/notes', (req, res) => {
+    console.log(req.body.title);
+    console.log(req.body.createdAt);
+    
     var note = new Note({
         title: req.body.title,
         description: req.body.description,
@@ -36,11 +39,15 @@ app.post('/notes', (req, res) => {
         createdAt: req.body.createdAt,
         editedAt: req.body.editedAt
     });
-
+    
     // in DB abspeichern
     note.save().then((doc) => {
         res.send(doc);
     }, (err) => {
+        console.log(note);
+        
+        console.log(err);
+        
         res.status(400).send(err);
     });
 });
@@ -61,7 +68,7 @@ app.get('/notes/:id',(req, res) => {
     // Valid id using isValid
     if (!ObjectID.isValid(id)) {
         return res.status(404).send(); // 404 - send back empty send
-    }    
+    }  
 
     // findById
     Note.findById(id).then((note)=> {
