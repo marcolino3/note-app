@@ -6,20 +6,33 @@ class Controller {
         this.noteTemplate = null;
     }
 
+    
     async initTemplates() {
         try {
-            this.noteTemplate =  Handlebars.compile($("#notes-list").html());
-            $('.notes').html(this.noteTemplate(await this.serviceContext.noteService.getAllNotes()));
+            this.noteTemplate =  await Handlebars.compile($("#notes-list").html());
+            this.renderTemplate();
         } catch (err) {
-
+            console.log(err);
+            
         }
-        
     }
     
     initUI() {
         this.initTemplates();
         this.registerEvents();
-        // this.updateUI();
+    }
+
+    async renderTemplate() {
+        await $('.notes').html(this.noteTemplate(await this.getAllNotes()));
+    }
+
+    async updateUI() {
+        await this.getAllNotes();
+        await this.renderTemplate();
+    }
+
+    async getAllNotes() {
+        return await this.serviceContext.noteService.getAllNotes();
     }
 
     registerEvents() {
@@ -70,12 +83,20 @@ class Controller {
 
             // Delete Note
             if (e.target.className === 'note__delete-btn') {
-                this.serviceContext.noteService.deleteNote(e.target.dataset.id);    
+                this.serviceContext.noteService.deleteNote(e.target.dataset.id);   
+                this.updateUI(); 
             }
 
             // Increment Priority
             if (e.target.className === 'note__priority-btn-plus') {
                 this.serviceContext.noteService.incrementPriority(e.target.dataset.id);
+                this.updateUI();
+            }
+
+            // Decrement Priority
+            if (e.target.className === 'note__priority-btn-minus') {
+                this.serviceContext.noteService.decrementPriority(e.target.dataset.id);
+                this.updateUI();
             }
 
         });

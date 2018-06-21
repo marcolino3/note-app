@@ -26,6 +26,12 @@ class NoteService {
         this.serviceContext.persistance.updateNoteInStorage(selectedNote.note);
     }
 
+    async decrementPriority(id) {
+        const selectedNote = await this.serviceContext.persistance.readSelectedNoteFromStorage(id);
+        selectedNote.note.priority--;
+        this.serviceContext.persistance.updateNoteInStorage(selectedNote.note);
+    }
+
     async toggleCompleted(id) {  
         const selectedNote = await this.getNote(id); 
         selectedNote[0].completed = !selectedNote[0].completed; 
