@@ -17,7 +17,7 @@
                 <label for="title">Title</label>
                 <input type="text" id="title" name="title" placeholder="Note Title" required>
                 <label for="description">Description</label>
-                <textarea type="text" id="description" name="description" required></textarea>
+                <textarea type="text" id="description" name="description"  placeholder="Note Description" required></textarea>
                 <label for="priority">Priority</label>
                 <select name="priority" id="priority" name="priority" required>
                     <option value="1">1</option>
@@ -26,14 +26,13 @@
                 </select>
                 <label for="date"></label>
                 <input type="date" id="due-date" name="dueDate" required>
-                <input type="submit" id="save-note"></input>
+                <input type="submit" id="save-note" value="Create Note" />
+                <input type="submit" id="delete-note" value="Delete Note" />
+                <input type="submit" id="show-notes" value="Show all Notes" />
             </form>
-            <button id="delete-note">Delete Note</button>
-            <button id="show-notes">Show all Notes</button>
     </section>
     
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
-    <script src="js/bootstrapper.js" type="module"></script>
+    <script src="js/index.js" type="module"></script>
 </body>
 </html>

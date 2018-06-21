@@ -54,12 +54,9 @@ class Controller {
             const dueDate = $('#due-date').val();
     
             const newNote = new Note(title, description, priority, dueDate);
-            console.log(newNote);
-            
             this.serviceContext.noteService.addNote(newNote);
             
-            // location.assign('index.html');
-
+            location.assign('index.html');
         });
 
         // Delete Note
@@ -103,6 +100,4 @@ class Controller {
     }
 
 }
-
-
 export default Controller;

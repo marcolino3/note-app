@@ -17,10 +17,7 @@ class Persistance {
     async readSelectedNoteFromStorage(id) {
         try {
             const response = await fetch(`${this.notes}/${id}`);
-            
             const selectedNote = await response.json();
-            console.log(selectedNote);
-            
             return selectedNote;
         } catch (err) {
             console.log('Unable to get selected note from database');

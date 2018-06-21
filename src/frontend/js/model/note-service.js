@@ -1,6 +1,8 @@
 class NoteService {
     constructor(serviceContext) {
-        this.serviceContext = serviceContext;        
+        this.serviceContext = serviceContext; 
+        this.maxPriority = 3;
+        this.minPriority = 1;       
     }
 
     async getAllNotes() {
@@ -22,14 +24,18 @@ class NoteService {
 
     async incrementPriority(id) {
         const selectedNote = await this.serviceContext.persistance.readSelectedNoteFromStorage(id);
-        selectedNote.note.priority++;
-        this.serviceContext.persistance.updateNoteInStorage(selectedNote.note);
+        if (selectedNote.note.priority < this.maxPriority) {
+            selectedNote.note.priority++;
+            this.serviceContext.persistance.updateNoteInStorage(selectedNote.note);
+        }
     }
 
     async decrementPriority(id) {
         const selectedNote = await this.serviceContext.persistance.readSelectedNoteFromStorage(id);
-        selectedNote.note.priority--;
-        this.serviceContext.persistance.updateNoteInStorage(selectedNote.note);
+        if (selectedNote.note.priority > this.minPriority) {
+            selectedNote.note.priority--;
+            this.serviceContext.persistance.updateNoteInStorage(selectedNote.note);
+        }  
     }
 
     async toggleCompleted(id) {  

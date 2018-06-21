@@ -26,8 +26,6 @@ app.get("/", function(req, res){
 
 // Post API
 app.post('/notes', (req, res) => {
-    console.log(req.body.title);
-    console.log(req.body.createdAt);
     
     var note = new Note({
         title: req.body.title,
@@ -111,8 +109,6 @@ app.patch('/notes/:id', (req, res) => {
     
     var id = req.params.id;
     var body = _.pick(req.body, ['title', 'description', 'priority', 'dueDate', 'completed']); // restrict properties to be changed
-
-    console.log(body);
     
         // validate ID
     if (!ObjectID.isValid(id)) {
