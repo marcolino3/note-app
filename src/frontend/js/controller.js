@@ -96,6 +96,12 @@ class Controller {
                 this.updateUI();
             }
 
+            // Toggle Completed
+            if (e.target.className === 'note__completed-radio-btn') {
+                this.serviceContext.noteService.toggleCompleted(e.target.dataset.id);
+                this.updateUI();
+            }
+
         });
     }
 

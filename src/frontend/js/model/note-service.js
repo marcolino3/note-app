@@ -39,11 +39,9 @@ class NoteService {
     }
 
     async toggleCompleted(id) {  
-        const selectedNote = await this.getNote(id); 
-        selectedNote[0].completed = !selectedNote[0].completed; 
-        selectedNote[0].completedAt = Date.now(); 
-        selectedNote[0].editedAt = Date.now(); 
-        console.log(selectedNote);
+        const selectedNote = await this.serviceContext.persistance.readSelectedNoteFromStorage(id);
+        selectedNote.note.completed = !selectedNote.note.completed;
+        this.serviceContext.persistance.updateNoteInStorage(selectedNote.note);
     }
     
 }
