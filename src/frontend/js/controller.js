@@ -36,6 +36,14 @@ class Controller {
 
     async getAllNotes() {
         const getAllNotesFromDB = await this.serviceContext.noteService.getAllNotes();
+
+        await getAllNotesFromDB.notes.forEach((note) => {
+            note.createdAt = moment(note.createdAt).format('MMMM Do YYYY');
+            note.editedAt = moment(note.editedAt).format('MMMM Do YYYY');
+            note.dueDate = moment(note.dueDate).format('dddd, MMMM Do YYYY');
+        });
+        
+
         getAllNotesFromDB.notes.reverse();
         const reversedNotes = getAllNotesFromDB;
         return reversedNotes;
