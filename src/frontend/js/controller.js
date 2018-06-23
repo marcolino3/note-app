@@ -7,9 +7,10 @@ class Controller {
         this.allNotes = {
             notes: [],
             context: 'all',
-            orderedBy: ''
+            orderedBy: '',
+            searchText: ''
         };
-        this.filteredNotes = {};
+        this.filteredNotes = this.allNotes;
     }
 
     // Get All Notes from DB, Format Date and Reverse Order
@@ -28,7 +29,17 @@ class Controller {
         // Reverse Order of Notes (latest first)
         await getAllNotesFromDB.notes.reverse();
 
-        this.filteredNotes.notes = getAllNotesFromDB.notes.filter((note) => {
+        // Filter Search Text
+        this.filteredNotes.notes = await getAllNotesFromDB.notes.filter((note) => {
+            if (this.filteredNotes.searchText.length > 0) {
+                return JSON.stringify(note).toLowerCase().includes(this.filteredNotes.searchText.toLowerCase().trim());
+            } else {
+                return true;
+            }
+        });
+
+        // Filters completed
+        this.filteredNotes.notes = this.filteredNotes.notes.filter((note) => {
             if (this.filteredNotes.context === 'completed') {
                 return note.completed === true;
             } else if (this.filteredNotes.context === 'uncompleted') {
@@ -38,6 +49,7 @@ class Controller {
             }
         });
 
+        // OrderBy
         this.filteredNotes.notes = this.filteredNotes.notes.sort((a, b) => {
             if (this.filteredNotes.orderedBy === 'priority') {
                 if (a.priority > b.priority) {
@@ -97,16 +109,12 @@ class Controller {
         await this.initTemplates();
     }
 
-    async updateFilteredNotes() {
-        this.filteredNotes = await this.getAllNotes();
-    }
-
-
     registerEvents() {
 
         /**
          * Events on edit.html
          */
+
 
         // Show All Notes Button
         $('#show-notes').on('click', () => location.assign('index.html'));
@@ -126,16 +134,19 @@ class Controller {
             location.assign('index.html');
         });
 
-        // Delete Note
-        $('#delete-note').on('click', (e) => {
-            this.serviceContext.noteService.deleteNote(e.target.dataset.id)
-        });
         /**
          * Event on index.html
          */
 
         // Create Note Button
         $('#create-note').on('click', () => location.assign('edit.html'));
+
+         // Search Text
+         $('#search-text').on('input', async (e) => {
+            this.filteredNotes.searchText = $('#search-text').val();
+            await this.getAllNotes();
+            await this.updateUI();
+        }) ;
 
         // Show all Notes
         $('#show-allNotes-btn').on('click', async () => {
@@ -161,45 +172,24 @@ class Controller {
 
 
         // Sort by Importance Button Button
-        $('#sort-by-importance-btn').on('click', () => {
-            this.filteredNotes.notes = this.allNotes.notes.sort((a, b) => {
-                if (a.priority > b.priority) {
-                    return -1
-                } else if (b.priority > a.priority) {
-                    return 1
-                } else {
-                    return 0
-                }
-            });
-            this.updateUI();
+        $('#sort-by-importance-btn').on('click', async () => {
+            this.filteredNotes.orderedBy = 'priority';
+            await this.getAllNotes();
+            await this.updateUI();
         });
 
         // Sort by Created Date Button
-        $('#sort-by-created-date-btn').on('click', () => {
-            this.filteredNotes.notes = this.allNotes.notes.sort((a, b) => {
-                if (a.createdAt > b.createdAt) {
-                    return -1
-                } else if (b.createdAt > a.createdAt) {
-                    return 1
-                } else {
-                    return 0
-                }
-            });
-            this.updateUI();
+        $('#sort-by-created-date-btn').on('click', async () => {
+            this.filteredNotes.orderedBy = 'createdAt';
+            await this.getAllNotes();
+            await this.updateUI();
         });
 
         // Sort by Due Date Button
-        $('#sort-by-due-date-btn').on('click', () => {
-            this.filteredNotes.notes = this.allNotes.notes.sort((a, b) => {
-                if (a.dueDate > b.dueDate) {
-                    return -1
-                } else if (b.dueDate > a.dueDate) {
-                    return 1
-                } else {
-                    return 0
-                }
-            });
-            this.updateUI();
+        $('#sort-by-due-date-btn').on('click', async () => {
+            this.filteredNotes.orderedBy = 'dueDate';
+            await this.getAllNotes();
+            await this.updateUI();
         });
 
         // Events on Notes List
@@ -207,57 +197,30 @@ class Controller {
 
             // Delete Note
             if (e.target.className === 'note__delete-btn') {
-                // Update DB
-                this.serviceContext.noteService.deleteNote(e.target.dataset.id);   
-
-                // Update View for faster reload
-                const noteIndex = this.filteredNotes.notes.findIndex((note) => note._id === e.target.dataset.id);
-                this.filteredNotes.notes.splice(noteIndex, 1);
-                this.updateUI();
-
-                // Update State
-                await this.updateFilteredNotes();
+                await this.serviceContext.noteService.deleteNote(e.target.dataset.id);   
+                await this.getAllNotes();
+                await this.updateUI();
             }
 
             // Increment Priority
             if (e.target.className === 'note__priority-btn-plus') {
-                // Update DB
-                this.serviceContext.noteService.incrementPriority(e.target.dataset.id);
-
-                // Update View for faster reload
-                const noteIndex = this.filteredNotes.notes.findIndex((note) => note._id === e.target.dataset.id);
-                if (this.filteredNotes.notes[noteIndex].priority < 3) {
-                    this.filteredNotes.notes[noteIndex].priority++;
-                }
-                this.updateUI();
-                this.updateFilteredNotes();
-                this.updateUI();
+                await this.serviceContext.noteService.incrementPriority(e.target.dataset.id);
+                await this.getAllNotes();
+                await this.updateUI();
             }
 
             // Decrement Priority
             if (e.target.className === 'note__priority-btn-minus') {
-                // Update DB
-                this.serviceContext.noteService.decrementPriority(e.target.dataset.id);
-
-                // Update View for faster reload
-                const noteIndex = this.filteredNotes.notes.findIndex((note) => note._id === e.target.dataset.id);
-                if (this.filteredNotes.notes[noteIndex].priority > 1) {
-                    this.filteredNotes.notes[noteIndex].priority--;
-                }
-                this.updateUI();
+                await this.serviceContext.noteService.decrementPriority(e.target.dataset.id);
+                await this.getAllNotes();
+                await this.updateUI();
             }
 
             // Toggle Completed
             if (e.target.className === 'note__completed-radio-btn') {
-                // Update DB
-                this.serviceContext.noteService.toggleCompleted(e.target.dataset.id);
-                
-                console.log(this.filteredNotes);
-                
-                // Update View
-                const noteIndex = this.filteredNotes.notes.findIndex((note) => note._id === e.target.dataset.id);
-                this.filteredNotes.notes[noteIndex].completed = !this.filteredNotes.notes[noteIndex].completed;
-                await this.updateUI();            
+                await this.serviceContext.noteService.toggleCompleted(e.target.dataset.id);
+                await this.getAllNotes();
+                await this.updateUI();     
             }
 
         });
