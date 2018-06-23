@@ -5,24 +5,24 @@ let mongoose = require('mongoose');
 let Note = mongoose.model('Note', {
     title: {
         type: String,
-        // required: true,
+        required: true,
         minlength: 1,
         trim: true
     },
     description: {
         type: String,
-        // required: true,
+        required: true,
         minlength: 1,
         trim: true
     },
     priority: {
         type: Number,
-        // required: true,
+        required: true,
         minlength: 1,
     },
     dueDate: {
         type: Number,
-        // required: true,
+        required: true,
         minlength: 1,
     },
     completed: {
