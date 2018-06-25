@@ -10,8 +10,7 @@ class NoteService {
     }
 
     async getNote(id) {
-        const allNotes = await this.getAllNotes();
-        return await allNotes.notes.filter((note) => note._id === id);
+        return await this.serviceContext.persistance.readSelectedNoteFromStorage(id);
     }
 
     async addNote(note) {
@@ -41,6 +40,20 @@ class NoteService {
     async toggleCompleted(id) {  
         const selectedNote = await this.serviceContext.persistance.readSelectedNoteFromStorage(id);
         selectedNote.note.completed = !selectedNote.note.completed;
+        this.serviceContext.persistance.updateNoteInStorage(selectedNote.note);
+    }
+
+    async updateNote(id, title, description, dueDate, priority) {
+        const selectedNote = {};
+        selectedNote.note.id = id;
+        selectedNote.note.title = title;
+        selectedNote.note.description = description;
+        selectedNote.note.dueDate = dueDate;
+        selectedNote.note.priority = priority;
+        selectedNote.note.completed = completed;
+        selectedNote.note.completedAt = completedAt;
+        selectedNote.note.createdAt = createAt;
+        selectedNote.note.editedAt = editedAt;
         this.serviceContext.persistance.updateNoteInStorage(selectedNote.note);
     }
     

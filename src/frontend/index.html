@@ -11,7 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
     <script id="notes-list" type="text/x-handlebars-template">
         {{#each notes}}
-        <div class="note__container" >
+        <div class="note__container white" >
             <div class="note__priority-line"></div>
             <div class="note__completed">
                 <div class="note__completed-radio-btn" data-id="{{ _id }}">
@@ -27,15 +27,15 @@
             <div class="note__priority-btn-minus" data-id="{{ _id }}">-</div>
             <div class="note__priority-value">{{ priority }}</div>
             <div class="note__description">{{ description }}</div>
-            <div class="note__created-date">Note created: {{ createdAt }}</div>
-            <div class="note__edited-date">Note edited: {{ editedAt }}</div>
+            <div class="note__created-date">created: {{ createdAt }}</div>
+            <div class="note__edited-date">edited: {{ editedAt }}</div>
             <div class="note__delete">
                 <div class="note__delete-btn" data-id="{{ _id }}">
                     <i class="material-icons">delete_outline</i>
                 </div>
             </div>
-            <div class="note__read-more-btn">
-                <div class="note__read-more-toggle">+</div>
+            <div class="note__edit-note-btn" data-id="{{ _id }}">
+                <i class="material-icons material-icon-edit" data-id="{{ _id }}">edit</i>
             </div>
         </div>
         {{/each}}
@@ -47,20 +47,21 @@
             <h1>Note App</h1>
     </header>
     <section class="action__wrapper">
-            <button id="create-note">Create new Note</button>
-            <select name="choose-style" id="style-switcher">
-                <option value="white">white</option>
-                <option value="black">black</option>
+        <div class="action__area">
+            <select name="choose-style" id="style-switcher" class="action__area_style-switcher">
+                <option value="dark">dark</option>
+                <option value="light">light</option>
             </select>
-            <div class="sortingbar-area">
-                    <input type="text" id="search-text" placeholder="Search Note Title">
-                    <button id="sort-by-due-date-btn">Sort by Due Date</button>
-                    <button id="sort-by-created-date-btn">Sort by Created Date</button>
-                    <button id="sort-by-importance-btn">Sort by Priority</button>
-                    <button id="show-completed-btn">Show Completed Notes</button>
-                    <button id="show-uncompleted-btn">Show Uncompleted Notes</button>
-                    <button id="show-allNotes-btn">Show All Notes</button>
-                </div>
+            <input type="text" id="search-text" class="action__area_search-text" placeholder="Search Note">
+            <button id="create-note" class="action__area_create-note-btn">New Note</button>
+            <button id="sort-by-due-date-btn" class="action__area_sort-by-due-date-btn action__area_btn">by Due Date</button>
+            <button id="sort-by-created-date-btn" class="action__area_sort-by-created-date-btn action__area_btn">by Created Date</button>
+            <button id="sort-by-priority-btn" class="action__area_sort-by-priority-btn action__area_btn">by Priority</button>
+            <h2 class="action__area_subtitle">Filters</h2>
+            <button id="show-completed-btn" class="action__area_show-completed-btn action__area_btn">Completed</button>
+            <button id="show-uncompleted-btn" class="action__area_show-uncompleted-btn action__area_btn">Uncompleted</button>
+            <button id="show-all-notes-btn" class="action__area_show-all-notes-btn action__area_btn">All</button>
+        </div>
     </section>
     <section>
         <div class="notes">

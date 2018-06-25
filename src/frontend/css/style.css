@@ -1,21 +1,23 @@
-html {
+body {
     font-family: 'Overpass', sans-serif;
     font-size: 100%;
     color: #fff;
     background: #2E2F41;
     padding: 0;
+    padding: 0;
     margin: 0;
 }
 
-body {
-    padding: 0;
-    margin: 0;
+body.light {
+    background: #F5F5F5;
 }
 
 .header__wrapper {
     text-align: center;
     min-height: 100px;
 }
+
+/* Action Wrapper */
 
 .action__wrapper {
     background: #393A4D;
@@ -24,12 +26,97 @@ body {
     margin-bottom: 40px;
 }
 
-.material-icons {
-    color: #393A4D;
-    position: relative;
-    left: 3px;
-    top: 3px;
-    z-index: -1;
+.action__area {
+    width: 80%;
+    margin: 0 auto;
+    padding: 40px 0;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: 80px 50px 50px;
+    grid-gap: 10px 20px;
+}
+
+.action__area_style-switcher {
+    grid-column: 1/2;
+    grid-row: 1/1;
+}
+
+.action__area_search-text {
+    grid-column: 3/6;
+    grid-row: 1/1;
+}
+
+.action__area_create-note-btn {
+    grid-column: 7/-1;
+    grid-row: 1/1;
+
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #00b6ad;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 0;
+    box-sizing: border-box;
+    border: 0;
+    cursor: pointer;
+    outline: none;
+    box-shadow: 2px 3px 10px #000000;
+}
+
+.action__area_subtitle {
+    grid-column: 1/-1;
+    grid-row: 2/3;
+}
+
+.action__area_sort-by-due-date-btn {
+    grid-column: 1/2;
+    grid-row: 3/4;
+}
+
+.action__area_sort-by-created-date-btn {
+    grid-column: 2/3;
+    grid-row: 3/4;
+}
+
+.action__area_sort-by-priority-btn {
+    grid-column: 3/4;
+    grid-row: 3/4;
+}
+
+.action__area_show-completed-btn {
+    grid-column: 5/6;
+    grid-row: 3/4;
+}
+
+.action__area_show-uncompleted-btn {
+    grid-column: 6/7;
+    grid-row: 3/4;
+}
+
+.action__area_show-all-notes-btn {
+    grid-column: 7/-1;
+    grid-row: 3/4;
+}
+
+.action__area_btn {
+    background: #00b6ad;
+    border-radius: 5px;
+    color: #f5f5f5;
+    font-size: 14px;
+    height: 30px;
+    border: none;
+    cursor: pointer;
+}
+
+.action__area_btn:focus {
+    outline: none;
+}
+
+.active {
+    background: orange;
 }
 
 /* Notes */
@@ -156,18 +243,18 @@ body {
     color: #606060;
 }
 
-.note__read-more-btn {
+.note__edit-note-btn {
     grid-column: 8/-1;
     grid-row: 5/8;
-    width: 0px;
-    height: 0px;
-    transform: rotate(360deg);
-    border-style: solid;
-    border-width: 0 0 40px 40px;
-    border-color: transparent transparent #00b6ad transparent;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #00b6ad;
     position: relative;
-    left: 20px;
-    bottom: 9px;
+    top: -5px;
+    cursor: pointer;
+    z-index: 10;
+    
 }
 
 .note__delete {
@@ -176,13 +263,6 @@ body {
     background: #393A4D;
 }
 
-.note__read-more-toggle {
-    font-size: 22px;
-    font-weight: 400;
-    position: relative;
-    left: -17px;
-    top: 10px;
-}
 
 /* Edit Notes */
 
@@ -195,20 +275,22 @@ body {
 
 form {
     display: grid;
-    grid-template-columns: 1fr 3fr;
+    grid-template-columns: 1fr 4fr;
     grid-gap: 8px;
     align-items: center;
 }
 
 label {
-    width: 100px;
+    font-size: 20px;
 }
 
 input, textarea, select {
+    background: #00b6ad;
+    border: 0;
+    color: #fff;
     width: 100%;
     padding: 12px 20px;
     box-sizing: border-box;
-    border: 1px solid #ccc;
     border-radius: 4px;
     font-size: inherit;
 }
@@ -216,6 +298,39 @@ input, textarea, select {
 textarea {
     height: 150px;
     resize: none;
+}
+
+select, input[type="date"]  {
+    width: 50%;
+    font-size: 16px;
+    height: 42px;
+}
+
+textarea:focus, input:focus{
+    background: #00b6ad;
+}
+
+input::placeholder, textarea::placeholder  {
+    color: #fff;
+}
+
+
+
+.add-note__btn {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #00b6ad;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 0;
+    box-sizing: border-box;
+    border: 0;
+    cursor: pointer;
+    outline: none;
+    box-shadow: 2px 3px 10px #000000;
 }
 
 /* Typographie */
@@ -233,4 +348,23 @@ span {
 .note-element {
     display: block;
     cursor: pointer;
+}
+
+/* Material Icons */
+
+.material-icons {
+    color: #393A4D;
+    position: relative;
+    left: 3px;
+    top: 3px;
+    z-index: -1;
+}
+
+.material-icon-edit {
+    position: relative;
+    left: 6px;
+    top: 5px;
+    color: #fff;
+    font-size: 18px;
+    z-index: -1;
 }
