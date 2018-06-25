@@ -89,8 +89,19 @@ class Controller {
     async initTemplates() {
         if ((location.href).toString().includes('edit.html')) {
             try {
+                this.selectedNoteId = location.hash.substr(1);
+
+
                 this.noteTemplate =  await Handlebars.compile($("#edit-note").html());
-                await $('.edit-note__wrapper').html(this.noteTemplate(await this.selectedNote));
+                await $('.edit-note__wrapper').html(this.noteTemplate(null));
+
+                const selectedNote = await this.serviceContext.noteService.getNote(this.selectedNoteId);
+        
+                $('#title').val(selectedNote.note.title);
+                $('#description').val(selectedNote.note.description);
+                $('#priority').val(selectedNote.note.priority);
+                $('#due-date').val(moment(selectedNote.note.dueDate).format('YYYY-MM-DD'));
+
             } catch (err) {
                 console.log(err); 
             }
@@ -110,7 +121,7 @@ class Controller {
         await this.getAllNotes();
         await this.initTemplates();
         await this.registerEvents();  
-        await this.checkLocation();
+        await this.isUpdate();
         await this.getStyle();
         await this.checkStyle();
     }
@@ -120,7 +131,7 @@ class Controller {
         await this.initTemplates();
     }
 
-    // Check Location
+    // Check isUpdate
     async isUpdate() {
         if (location.hash === '') {
             return false;
@@ -141,12 +152,7 @@ class Controller {
 
     // Edit Note
     async editNote() {
-        const selectedNote = await this.serviceContext.noteService.getNote(this.selectedNoteId);
         
-        $('#title').val(selectedNote.note.title);
-        $('#description').val(selectedNote.note.description);
-        $('#priority').val(selectedNote.note.priority);
-        $('#due-date').val(moment(selectedNote.note.dueDate).format('YYYY-MM-DD'));
         
         // $('.edit-note').on('click', async () => {
             const title = $('#title').val();
@@ -154,7 +160,7 @@ class Controller {
             const priority = Number.parseInt($('#priority').val());
             const dueDate = moment($('#due-date').val()).unix();
             await this.serviceContext.noteService.updateNote(
-                id, 
+                this.selectedNoteId, 
                 title,
                 description,
                 priority,
@@ -216,7 +222,7 @@ class Controller {
         $('#show-notes').on('click', () => location.assign('index.html'));
 
         // Add or Update Note
-        $('#add-note').on('submit', (e) => {
+        $('#add-note').on('submit', async (e) => {
             
 
             if(this.isUpdate) {

@@ -9,6 +9,7 @@ const {ObjectID} = require('mongodb');
 var {mongoose} = require('./../src/backend/db/mongoose');
 var {Note} = require('./../src/backend/models/Note');
 
+
 // Express app erstellen
 var app = express();
 const port = process.env.PORT || 3000;
@@ -20,9 +21,15 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + './../src/frontend'));
 
 // Routes
-app.get("/", function(req, res){
-    res.sendFile("index.html",  {root: __dirname + '/frontend/'});
-});
+
+const initFrontend = function() {
+    app.get("/", function(req, res){
+        res.sendFile("index.html",  {root: __dirname + '/frontend/'});
+    });
+}
+initFrontend();
+
+
 
 // Post API
 app.post('/notes', (req, res) => {
