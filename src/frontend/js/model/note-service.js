@@ -43,18 +43,14 @@ class NoteService {
         this.serviceContext.persistance.updateNoteInStorage(selectedNote.note);
     }
 
-    async updateNote(id, title, description, dueDate, priority) {
-        const selectedNote = {};
-        selectedNote.note.id = id;
-        selectedNote.note.title = title;
-        selectedNote.note.description = description;
-        selectedNote.note.dueDate = dueDate;
-        selectedNote.note.priority = priority;
-        selectedNote.note.completed = completed;
-        selectedNote.note.completedAt = completedAt;
-        selectedNote.note.createdAt = createAt;
-        selectedNote.note.editedAt = editedAt;
-        this.serviceContext.persistance.updateNoteInStorage(selectedNote.note);
+    async updateNote(id, title, description, priority, dueDate) {
+        const selectedNote = await this.serviceContext.persistance.readSelectedNoteFromStorage(id);
+        selectedNote.note.title = 'test';
+        // selectedNote.note.description = description;
+        // selectedNote.note.dueDate = dueDate;
+        // selectedNote.note.priority = priority;
+        // selectedNote.note.editedAt = Date.now();
+        await this.serviceContext.persistance.updateNoteInStorage(selectedNote.note);
     }
     
 }

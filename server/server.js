@@ -106,9 +106,10 @@ app.delete('/notes/:id', (req, res) => {
 
 // Patch (Update)
 app.patch('/notes/:id', (req, res) => {
+    console.log(req.params.id);
     
     var id = req.params.id;
-    var body = _.pick(req.body, ['title', 'description', 'priority', 'dueDate', 'completed']); // restrict properties to be changed
+    var body = _.pick(req.body, ['title', 'description', 'priority', 'dueDate', 'completed', 'editedAt']); // restrict properties to be changed
     
         // validate ID
     if (!ObjectID.isValid(id)) {
@@ -124,7 +125,9 @@ app.patch('/notes/:id', (req, res) => {
     }
 
     // Update Document
-    Note.findByIdAndUpdate(id, {$set: body}, {new: true}).then((note) => {
+    Note.findByIdAndUpdate(id, {$set: body}, {new: false}).then((note) => {
+        console.log(note._id);
+        
         if (!note) {
             return res.status(404).send();
         }
@@ -133,7 +136,10 @@ app.patch('/notes/:id', (req, res) => {
         res.send({note});
 
     }).catch((err) => { // error
-        res.status(400).send();
+        console.log('error');
+        console.log(err);
+        
+        res.status(400).send(err);
     });
 });
 

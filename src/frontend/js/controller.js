@@ -121,50 +121,49 @@ class Controller {
     }
 
     // Check Location
-    async checkLocation() {
+    async isUpdate() {
         if (location.hash === '') {
-            return true;
+            return false;
         } else {
             this.selectedNoteId = location.hash.substr(1);
-            await this.editNote(this.selectedNoteId)
+            return true;
         }
     }
-    
+    // Insert NOte
+    async insertNote() {
+        const title = $('#title').val();
+        const description = $('#description').val();
+        const priority = Number.parseInt($('#priority').val());
+        const dueDate = $('#due-date').val();
+        const newNote = new Note(title, description, priority, dueDate);
+        this.serviceContext.noteService.addNote(newNote);
+    }
 
     // Edit Note
-    async editNote(id) {
-        const selectedNote = await this.serviceContext.noteService.getNote(id);
-        console.log(selectedNote);
+    async editNote() {
+        const selectedNote = await this.serviceContext.noteService.getNote(this.selectedNoteId);
         
         $('#title').val(selectedNote.note.title);
         $('#description').val(selectedNote.note.description);
         $('#priority').val(selectedNote.note.priority);
         $('#due-date').val(moment(selectedNote.note.dueDate).format('YYYY-MM-DD'));
-
-        $('#save-note').addClass('edit-note');
-
         
-        $('.edit-note').on('click', () => {
+        // $('.edit-note').on('click', async () => {
             const title = $('#title').val();
             const description = $('#description').val();
             const priority = Number.parseInt($('#priority').val());
-            const dueDate = $('#due-date').val();
-            const completed = selectedNote.note.completed;
-            const completedAt = selectedNote.note.completedAt;
-            const createdAt = selectedNote.note.createdAt;
-            const editedAt = selectedNote.note.editedAt;
-            this.serviceContext.noteService.updateNote(
+            const dueDate = moment($('#due-date').val()).unix();
+            await this.serviceContext.noteService.updateNote(
                 id, 
                 title,
                 description,
                 priority,
-                dueDate,
-                completed,
-                completedAt,
-                createdAt,
-                editedAt
+                dueDate
             );
-        });
+
+            await this.getAllNotes();
+            await this.updateUI();
+        // });
     }
 
     async getStyle() {
@@ -216,17 +215,17 @@ class Controller {
         // Show All Notes Button
         $('#show-notes').on('click', () => location.assign('index.html'));
 
-        // Add Note
+        // Add or Update Note
         $('#add-note').on('submit', (e) => {
             
-            e.preventDefault();
-            const title = $('#title').val();
-            const description = $('#description').val();
-            const priority = Number.parseInt($('#priority').val());
-            const dueDate = $('#due-date').val();
-    
-            const newNote = new Note(title, description, priority, dueDate);
-            this.serviceContext.noteService.addNote(newNote);
+
+            if(this.isUpdate) {
+                e.preventDefault();
+                await this.editNote(this.selectedNoteId);
+            } else {
+                e.preventDefault();
+                await this.insertNote();
+            }
             
             location.assign('index.html');
         });
