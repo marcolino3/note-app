@@ -13,7 +13,7 @@ class Controller {
         };
         this.filteredNotes = this.allNotes;
         this.selectedNoteId = '',
-        this.style = [];
+        this.style = '';
     }
 
     // Get All Notes from DB, Format Date and Reverse Order
@@ -100,8 +100,8 @@ class Controller {
         await this.getAllNotes();
         await this.initTemplates();
         await this.registerEvents();  
+        await this.getStyle();
         
-        // await this.getStyle();
         // await this.checkStyle();
     }
 
@@ -111,13 +111,13 @@ class Controller {
     }
 
     
-
     async getStyle() {
         
         const styleFromLocalStorage = await localStorage.getItem('style');
 
         if (styleFromLocalStorage !== null) {
             this.style = styleFromLocalStorage;
+            this.setStyle(this.style);
         } else {
             this.style = 'dark';
             this.setStyle('dark');
@@ -125,15 +125,16 @@ class Controller {
     }
 
     async setStyle(style) {
-        localStorage.setItem('style', JSON.stringify(style));
-    }
+        localStorage.setItem('style', style);
+        this.style = style;
 
-    async checkStyle() {
-        if (this.style === 'light') {
-            $('body').toggleClass('light');
+        if (this.style === 'dark') {
+            $('body').removeClass('light');
+            $('#style-switcher option[value="dark"]').attr("selected",true);
+        } else if (this.style === 'light') {
+            $('body').addClass('light');
+            $('#style-switcher option[value="light"]').attr("selected",true);
         }
-        console.log(this.style);
-        
     }
 
     setActive(button) {
@@ -157,18 +158,10 @@ class Controller {
         $('#create-note').on('click', () => location.assign('edit.html'));
 
         // Style Switcher
-        $('#style-switcher').on('change', () => {
-            
-            $('body').toggleClass('light');
+        $('#style-switcher').on('change', (e) => {
 
-            if (this.style === 'light') {
-                this.style === 'dark';
-                this.setStyle(this.style);
-            } else if (this.style === 'dark') {
-                this.style === 'light';
-                this.setStyle(this.style);
-            }
-            console.log(this.style);
+            const styleToSet = $('#style-switcher').val();
+            this.setStyle(styleToSet);
             
         });
 

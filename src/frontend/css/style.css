@@ -8,10 +8,6 @@ body {
     margin: 0;
 }
 
-body.light {
-    background: #F5F5F5;
-}
-
 .header__wrapper {
     text-align: center;
     min-height: 100px;
@@ -32,7 +28,7 @@ body.light {
     padding: 40px 0;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: 80px 50px 50px;
+    grid-template-rows: 50px 50px 50px;
     grid-gap: 10px 20px;
 }
 
@@ -63,7 +59,7 @@ body.light {
     border: 0;
     cursor: pointer;
     outline: none;
-    box-shadow: 2px 3px 10px #000000;
+    box-shadow: 2px 3px 10px #333;
 }
 
 .action__area_subtitle {
@@ -204,14 +200,6 @@ body.light {
     grid-column: 6/7;
     grid-row: 3/4;
     cursor: pointer;
-}
-
-.note__priority-1 {
-    background: red;
-}
-
-.note__priority-2 {
-    background: yellow;
 }
 
 .note__description {
@@ -367,4 +355,56 @@ span {
     color: #fff;
     font-size: 18px;
     z-index: -1;
+}
+
+
+/* Style Switcher Light */
+
+body.light {
+    background: #F5F5F5;
+}
+
+.light h1 {
+    color: #393A4D;
+}
+
+.light .action__wrapper {
+    background: #ddd;
+    box-shadow: 2px 1px 3px 0 #999;
+}
+
+.light input, 
+.light textarea, 
+.light select,
+.light .action__area_btn
+{
+    background: #393A4D;
+}
+
+.light .action__area_create-note-btn {
+    box-shadow: 2px 3px 10px #999;
+    background: #393A4D;
+}
+.light .note__container {
+    box-shadow: 1px 1px 4px 0 #ddd;
+}
+
+.light .note__completed,
+.light .note__title,
+.light .note__due-date,
+.light .note__priority-label,
+.light .note__priority-btn-plus,
+.light .note__priority-btn-minus,
+.light .note__priority-value,
+.light .note__delete
+{
+    background: #00b6ad;
+}
+
+.light .material-icons {
+    color: #00b6ad;
+}
+
+.light .material-icon-edit {
+    color: #fff;
 }
