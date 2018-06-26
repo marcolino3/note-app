@@ -21,7 +21,6 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + './../src/frontend'));
 
 // Routes
-
 const initFrontend = function() {
     app.get("/", function(req, res){
         res.sendFile("index.html",  {root: __dirname + '/frontend/'});

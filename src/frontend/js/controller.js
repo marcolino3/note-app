@@ -120,10 +120,11 @@ class Controller {
     async initUI() {
         await this.getAllNotes();
         await this.initTemplates();
-        await this.registerEvents();  
         await this.isUpdate();
-        await this.getStyle();
-        await this.checkStyle();
+        await this.registerEvents();  
+        
+        // await this.getStyle();
+        // await this.checkStyle();
     }
 
     // Update UI
@@ -147,6 +148,8 @@ class Controller {
         const priority = Number.parseInt($('#priority').val());
         const dueDate = $('#due-date').val();
         const newNote = new Note(title, description, priority, dueDate);
+        console.log(newNote);
+        
         this.serviceContext.noteService.addNote(newNote);
     }
 
@@ -223,13 +226,12 @@ class Controller {
 
         // Add or Update Note
         $('#add-note').on('submit', async (e) => {
-            
+            e.preventDefault();
+            const isUpdate = await this.isUpdate();
 
-            if(this.isUpdate) {
-                e.preventDefault();
+            if(isUpdate) {
                 await this.editNote(this.selectedNoteId);
             } else {
-                e.preventDefault();
                 await this.insertNote();
             }
             
