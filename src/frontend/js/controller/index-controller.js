@@ -93,42 +93,12 @@ class Controller {
         } catch (err) {
             console.log(err); 
         }
-
-
-        // if ((location.href).toString().includes('edit.html')) {
-        //     try {
-        //         this.selectedNoteId = location.hash.substr(1);
-
-
-        //         this.noteTemplate =  await Handlebars.compile($("#edit-note").html());
-        //         await $('.edit-note__wrapper').html(this.noteTemplate(null));
-
-        //         const selectedNote = await this.serviceContext.noteService.getNote(this.selectedNoteId);
-        
-        //         $('#title').val(selectedNote.note.title);
-        //         $('#description').val(selectedNote.note.description);
-        //         $('#priority').val(selectedNote.note.priority);
-        //         $('#due-date').val(moment(selectedNote.note.dueDate).format('YYYY-MM-DD'));
-
-        //     } catch (err) {
-        //         console.log(err); 
-        //     }
-        // } else {
-        //     try {
-        //         this.noteTemplate =  await Handlebars.compile($("#notes-list").html());
-        //         await $('.notes').html(this.noteTemplate(await this.filteredNotes));
-        //     } catch (err) {
-        //         console.log(err); 
-        //     }
-        // }
-        
     } 
 
     // Init UI
     async initUI() {
         await this.getAllNotes();
         await this.initTemplates();
-        // await this.isUpdate();
         await this.registerEvents();  
         
         // await this.getStyle();
@@ -140,48 +110,7 @@ class Controller {
         await this.initTemplates();
     }
 
-    // Check isUpdate
-    // async isUpdate() {
-    //     if (location.hash === '') {
-    //         return false;
-    //     } else {
-    //         this.selectedNoteId = location.hash.substr(1);
-    //         return true;
-    //     }
-    // }
-    // Insert NOte
-    // async insertNote() {
-    //     const title = $('#title').val();
-    //     const description = $('#description').val();
-    //     const priority = Number.parseInt($('#priority').val());
-    //     const dueDate = $('#due-date').val();
-    //     const newNote = new Note(title, description, priority, dueDate);
-    //     console.log(newNote);
-        
-    //     this.serviceContext.noteService.addNote(newNote);
-    // }
-
-    // Edit Note
-    // async editNote() {
-        
-        
-    //     // $('.edit-note').on('click', async () => {
-    //         const title = $('#title').val();
-    //         const description = $('#description').val();
-    //         const priority = Number.parseInt($('#priority').val());
-    //         const dueDate = moment($('#due-date').val()).unix();
-    //         await this.serviceContext.noteService.updateNote(
-    //             this.selectedNoteId, 
-    //             title,
-    //             description,
-    //             priority,
-    //             dueDate
-    //         );
-
-    //         await this.getAllNotes();
-    //         await this.updateUI();
-    //     // });
-    // }
+    
 
     async getStyle() {
         
@@ -223,32 +152,6 @@ class Controller {
     
 
     registerEvents() {
-
-        /**
-         * Events on edit.html
-         */
-
-
-        // // Show All Notes Button
-        // $('#show-notes').on('click', () => location.assign('index.html'));
-
-        // // Add or Update Note
-        // $('#add-note').on('submit', async (e) => {
-        //     e.preventDefault();
-        //     const isUpdate = await this.isUpdate();
-
-        //     if(isUpdate) {
-        //         await this.editNote(this.selectedNoteId);
-        //     } else {
-        //         await this.insertNote();
-        //     }
-            
-        //     location.assign('index.html');
-        // });
-
-        /**
-         * Event on index.html
-         */
 
         // Create Note Button
         $('#create-note').on('click', () => location.assign('edit.html'));

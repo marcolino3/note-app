@@ -47,8 +47,8 @@ class NoteService {
         const selectedNote = await this.serviceContext.persistance.readSelectedNoteFromStorage(id);
         selectedNote.note.title = title;
         selectedNote.note.description = description;
-        selectedNote.note.dueDate = dueDate;
         selectedNote.note.priority = priority;
+        selectedNote.note.dueDate = dueDate;
         selectedNote.note.editedAt = Date.now();
         await this.serviceContext.persistance.updateNoteInStorage(selectedNote.note);
     }

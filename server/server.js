@@ -115,7 +115,7 @@ app.patch('/notes/:id', (req, res) => {
     console.log(req.params.id);
     
     var id = req.params.id;
-    var body = _.pick(req.body, ['title', 'description', 'priority', 'dueDate', 'completed', 'editedAt']); // restrict properties to be changed
+    var body = _.pick(req.body, ['title', 'description', 'priority', 'dueDate', 'completed']); // restrict properties to be changed
     
         // validate ID
     if (!ObjectID.isValid(id)) {
@@ -131,7 +131,7 @@ app.patch('/notes/:id', (req, res) => {
     }
 
     // Update Document
-    Note.findByIdAndUpdate(id, {$set: body}, {new: false}).then((note) => {
+    Note.findByIdAndUpdate(id, {$set: body}, {new: true}).then((note) => {
         console.log(note._id);
         
         if (!note) {

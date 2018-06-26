@@ -10,7 +10,7 @@ class Note {
         this.title = title;
         this.description = description;
         this.priority = priority;
-        this.dueDate = Date.parse(dueDate);
+        this.dueDate = dueDate;
         this.completed = false;
         this.completedAt = null;
         this.createdAt = Date.now();

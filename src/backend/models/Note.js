@@ -21,7 +21,7 @@ let Note = mongoose.model('Note', {
         minlength: 1,
     },
     dueDate: {
-        type: Number,
+        type: Date,
         required: true,
         minlength: 1,
     },
@@ -30,15 +30,15 @@ let Note = mongoose.model('Note', {
         default: false
     },
     completedAt: {
-        type: Number,
+        type: Date,
         default: null
     },
     createdAt: {
-        type: Number,
+        type: Date,
         default: null
     },
     editedAt: {
-        type: Number,
+        type: Date,
         default: null
     }
 });

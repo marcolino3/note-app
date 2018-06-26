@@ -4,7 +4,6 @@ class Controller {
     constructor(serviceContext) {
         this.serviceContext = serviceContext;
         this.noteTemplate = null;
-        this.editNoteTemplate = null;
         this.allNotes = {
             notes: [],
             context: 'all',
