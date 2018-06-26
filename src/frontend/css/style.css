@@ -364,7 +364,7 @@ body.light {
     background: #F5F5F5;
 }
 
-.light h1 {
+.light h1, label {
     color: #393A4D;
 }
 

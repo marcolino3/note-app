@@ -1,4 +1,4 @@
-import Note from "./../model/note.js";
+import StyleSwitcher from "./../helper/style-switcher.js";
 
 class Controller {
     constructor(serviceContext) {
@@ -13,7 +13,7 @@ class Controller {
         };
         this.filteredNotes = this.allNotes;
         this.selectedNoteId = '',
-        this.style = '';
+        this.styleSwitcher = new StyleSwitcher();
     }
 
     // Get All Notes from DB, Format Date and Reverse Order
@@ -100,7 +100,7 @@ class Controller {
         await this.getAllNotes();
         await this.initTemplates();
         await this.registerEvents();  
-        await this.getStyle();
+        this.styleSwitcher.getStyle();
         
         // await this.checkStyle();
     }
@@ -111,31 +111,31 @@ class Controller {
     }
 
     
-    async getStyle() {
+    // async getStyle() {
         
-        const styleFromLocalStorage = await localStorage.getItem('style');
+    //     const styleFromLocalStorage = await localStorage.getItem('style');
 
-        if (styleFromLocalStorage !== null) {
-            this.style = styleFromLocalStorage;
-            this.setStyle(this.style);
-        } else {
-            this.style = 'dark';
-            this.setStyle('dark');
-        }    
-    }
+    //     if (styleFromLocalStorage !== null) {
+    //         this.style = styleFromLocalStorage;
+    //         this.setStyle(this.style);
+    //     } else {
+    //         this.style = 'dark';
+    //         this.setStyle('dark');
+    //     }    
+    // }
 
-    async setStyle(style) {
-        localStorage.setItem('style', style);
-        this.style = style;
+    // async setStyle(style) {
+    //     localStorage.setItem('style', style);
+    //     this.style = style;
 
-        if (this.style === 'dark') {
-            $('body').removeClass('light');
-            $('#style-switcher option[value="dark"]').attr("selected",true);
-        } else if (this.style === 'light') {
-            $('body').addClass('light');
-            $('#style-switcher option[value="light"]').attr("selected",true);
-        }
-    }
+    //     if (this.style === 'dark') {
+    //         $('body').removeClass('light');
+    //         $('#style-switcher option[value="dark"]').attr("selected",true);
+    //     } else if (this.style === 'light') {
+    //         $('body').addClass('light');
+    //         $('#style-switcher option[value="light"]').attr("selected",true);
+    //     }
+    // }
 
     setActive(button) {
         $(button).toggleClass('active');
@@ -158,12 +158,7 @@ class Controller {
         $('#create-note').on('click', () => location.assign('edit.html'));
 
         // Style Switcher
-        $('#style-switcher').on('change', (e) => {
-
-            const styleToSet = $('#style-switcher').val();
-            this.setStyle(styleToSet);
-            
-        });
+        this.styleSwitcher.registerEvents();
 
         // Search Text
         $('#search-text').on('input', async (e) => {

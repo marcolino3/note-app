@@ -1,4 +1,5 @@
 import Note from "./../model/note.js";
+import StyleSwitcher from "./../helper/style-switcher.js";
 
 class Controller {
     constructor(serviceContext) {
@@ -12,7 +13,7 @@ class Controller {
         };
         this.filteredNotes = this.allNotes;
         this.selectedNoteId = '',
-        this.style = [];
+        this.styleSwitcher = new StyleSwitcher();
     }
 
     // Handlebars: Compile Rendering
@@ -41,8 +42,7 @@ class Controller {
         await this.initTemplates();
         await this.registerEvents();  
         
-        // await this.getStyle();
-        // await this.checkStyle();
+        this.styleSwitcher.getStyle();
     }
 
     // Update UI
@@ -129,6 +129,9 @@ class Controller {
             
             location.assign('index.html');
         });
+
+        // Style Switcher
+        this.styleSwitcher.registerEvents();
 
     }
 
