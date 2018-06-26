@@ -1,15 +1,15 @@
 // Libraries laden
 const _= require('lodash');
 const express = require('express');
-var path = require('path');
+const path = require('path');
 const bodyParser = require('body-parser');
 const {ObjectID} = require('mongodb');
 
 // Lokale Dateien laden
-var {mongoose} = require('./../src/backend/db/mongoose');
-var {Note} = require('./../src/backend/models/Note');
-var noteController = require('./note-controller');
-var routes = require('./routes');
+const {mongoose} = require('./../src/backend/db/mongoose');
+const {Note} = require('./../src/backend/models/Note');
+const noteController = require('./note-controller');
+const routes = require('./routes');
 
 
 // Express app erstellen
