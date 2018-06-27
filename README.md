@@ -4,33 +4,40 @@ Note App with backend and database.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+Mongo DB and Mongoose are part of the repository, but were installed on a macOS system. For installation on a Windows computer, please refer to Mongo's documentation.
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
-
 ```
-Mongo Data Base is included in the repository.
+macOS: Mongo should run smoothly. 
+Windows: Please check documentation.
 ```
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
+Install Node Modules
 
 ```
-Give the example
+npm install
 ```
 
-And repeat
+Start Mongo - open Directory Mongo/bin
 
 ```
-until finished
+./mongod --dbpath ~/yourDirectory/mongo-data
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+Start the Server
+
+```
+npm run server
+```
+
+Open the Browser
+
+```
+localhost:3000
+```
 
 ## Running the tests
 
