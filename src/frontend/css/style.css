@@ -420,7 +420,7 @@ body.light {
     background: #F5F5F5;
 }
 
-.light h1, .light label {
+.light h1, .light h2, .light label {
     color: #393A4D;
 }
 
@@ -429,15 +429,8 @@ body.light {
     box-shadow: 2px 1px 3px 0 #999;
 }
 
-.light input, 
-.light textarea, 
-.light select,
-.light .action__area_btn
-{
-    background: #393A4D;
-}
-
-.light .action__area_create-note-btn {
+.light .action__area_create-note-btn, 
+.light .add-note__btn {
     box-shadow: 2px 3px 10px #999;
     background: #393A4D;
 }
@@ -445,6 +438,7 @@ body.light {
     box-shadow: 1px 1px 4px 0 #ddd;
 }
 
+.light .note__priority-line,
 .light .note__completed,
 .light .note__title,
 .light .note__due-date,
@@ -452,13 +446,22 @@ body.light {
 .light .note__priority-btn-plus,
 .light .note__priority-btn-minus,
 .light .note__priority-value,
-.light .note__delete
+.light .note__delete,
+.light .note__edit-note-btn,
+.light input, 
+.light textarea, 
+.light select,
+.light .action__area_btn
 {
-    background: #00b6ad;
+    background: #0094b6;
+}
+
+.light .active {
+    background: #0094b6;
 }
 
 .light .material-icons {
-    color: #00b6ad;
+    color: #0094b6;
 }
 
 .light .material-icon-edit {
