@@ -429,6 +429,10 @@ body.light {
     box-shadow: 2px 1px 3px 0 #999;
 }
 
+.light .action__reset-search-text-btn {
+    background: #393A4D !important;
+}
+
 .light .action__area_create-note-btn, 
 .light .add-note__btn {
     box-shadow: 2px 3px 10px #999;
@@ -457,7 +461,7 @@ body.light {
 }
 
 .light .active {
-    background: #0094b6;
+    background: #393A4D;
 }
 
 .light .material-icons {
