@@ -24,7 +24,7 @@ Install Node Modules
 npm install
 ```
 
-Start Mongo - open Directory Mongo/bin
+Start Mongo on macOS - open Directory Mongo/bin
 
 ```
 ./mongod --dbpath ~/yourDirectory/mongo-data
