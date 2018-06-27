@@ -9,6 +9,7 @@ Mongo DB and Mongoose are part of the repository, but were installed on a macOS 
 ### Prerequisites
 
 ```
+Node with NPM
 macOS: Mongo should run smoothly. 
 Windows: Please check documentation.
 ```
@@ -42,7 +43,7 @@ localhost:3000
 
 ## Authors
 
-* **Marco Marranchelli** - *Initial work* - [marcolino3](https://github.com/marcolino3)
+* **Marco Marranchelli** - [marcolino3](https://github.com/marcolino3)
 
 
 ## License
