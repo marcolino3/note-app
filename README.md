@@ -10,6 +10,8 @@ Mongo DB and Mongoose are part of the repository, but were installed on a macOS 
 
 ```
 Node with NPM
+
+Mongo
 macOS: Mongo should run smoothly. 
 Windows: Please check documentation.
 ```
