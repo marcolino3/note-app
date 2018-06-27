@@ -42,6 +42,13 @@ body {
     grid-row: 1/1;
 }
 
+.action__reset-search-text-btn {
+    grid-column: 5/6;
+    grid-row: 1/1;
+    height: 50px !important;
+    background: #0094b6 !important;
+}
+
 .action__area_create-note-btn {
     grid-column: 7/-1;
     grid-row: 1/1;
@@ -112,7 +119,7 @@ body {
 }
 
 .active {
-    background: orange;
+    background: #0094b6;
 }
 
 /* Notes */
@@ -263,10 +270,61 @@ body {
 
 form {
     display: grid;
-    grid-template-columns: 1fr 4fr;
+    grid-template-columns: repeat(5, 4fr);
     grid-gap: 8px;
     align-items: center;
 }
+
+.add-note__label--title {
+    grid-column: 1/2;
+    grid-row: 1/2;
+}
+
+.add-note__label--description {
+    grid-column: 1/2;
+    grid-row: 2/3;  
+}
+
+.add-note__label--priority {
+    grid-column: 1/2;
+    grid-row: 3/4;   
+}
+
+.add-note__label--due-date {
+    grid-column: 1/2;
+    grid-row: 4/5;  
+}
+
+.add-note__input--title {
+    grid-column: 2/-1;
+    grid-row: 1/2;  
+}
+
+.add-note__textarea--description {
+    grid-column: 2/-1;
+    grid-row: 2/3; 
+}
+
+.add-note__select--priority {
+    grid-column: 2/-1;
+    grid-row: 3/4; 
+}
+
+.add-note__input--due-date {
+    grid-column: 2/-1;
+    grid-row: 4/5; 
+}
+
+.add-note__input--save-note {
+    grid-column: 5/-1;
+    grid-row: 5/6; 
+}
+
+.add-note__input--show-notes {
+    grid-column: 4/5;
+    grid-row: 5/6; 
+}
+
 
 label {
     font-size: 20px;
@@ -301,8 +359,6 @@ textarea:focus, input:focus{
 input::placeholder, textarea::placeholder  {
     color: #fff;
 }
-
-
 
 .add-note__btn {
     width: 80px;
@@ -364,7 +420,7 @@ body.light {
     background: #F5F5F5;
 }
 
-.light h1, label {
+.light h1, .light label {
     color: #393A4D;
 }
 

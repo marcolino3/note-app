@@ -110,33 +110,8 @@ class Controller {
         await this.initTemplates();
     }
 
-    
-    // async getStyle() {
-        
-    //     const styleFromLocalStorage = await localStorage.getItem('style');
 
-    //     if (styleFromLocalStorage !== null) {
-    //         this.style = styleFromLocalStorage;
-    //         this.setStyle(this.style);
-    //     } else {
-    //         this.style = 'dark';
-    //         this.setStyle('dark');
-    //     }    
-    // }
-
-    // async setStyle(style) {
-    //     localStorage.setItem('style', style);
-    //     this.style = style;
-
-    //     if (this.style === 'dark') {
-    //         $('body').removeClass('light');
-    //         $('#style-switcher option[value="dark"]').attr("selected",true);
-    //     } else if (this.style === 'light') {
-    //         $('body').addClass('light');
-    //         $('#style-switcher option[value="light"]').attr("selected",true);
-    //     }
-    // }
-
+    // Filter and Sort Buttons
     setActive(button) {
         $(button).toggleClass('active');
     }
@@ -149,6 +124,19 @@ class Controller {
         $('.action__area_show-uncompleted-btn').removeClass('active');
         $('.action__area_show-all-notes-btn').removeClass('active');
     }
+
+    resetActiveToSort() {
+        $('.action__area_sort-by-due-date-btn').removeClass('active');
+        $('.action__area_sort-by-created-date-btn').removeClass('active');
+        $('.action__area_sort-by-priority-btn').removeClass('active');
+    }
+
+    resetActiveToFilter() {
+        $('.action__area_show-completed-btn').removeClass('active');
+        $('.action__area_show-uncompleted-btn').removeClass('active');
+        $('.action__area_show-all-notes-btn').removeClass('active');
+    }
+
 
     
 
@@ -165,7 +153,15 @@ class Controller {
             this.filteredNotes.searchText = $('#search-text').val();
             await this.getAllNotes();
             await this.updateUI();
-        }) ;
+        });
+
+        // Reset Search Text Btn
+        $('#reset-search-text').on('click', async () => {
+            this.filteredNotes.searchText = '';
+            $('#search-text').val(this.filteredNotes.searchText);
+            await this.getAllNotes();
+            await this.updateUI();
+        });
 
         // Show all Notes
         $('#show-all-notes-btn').on('click', async () => {
@@ -185,7 +181,7 @@ class Controller {
             await this.getAllNotes();
             await this.updateUI();
 
-            this.resetActive();
+            this.resetActiveToFilter();
             this.setActive('#show-completed-btn'); 
         });
 
@@ -196,7 +192,7 @@ class Controller {
             await this.getAllNotes();
             await this.updateUI();
 
-            this.resetActive();
+            this.resetActiveToFilter();
             this.setActive('#show-uncompleted-btn'); 
         });
 
@@ -208,7 +204,7 @@ class Controller {
             await this.getAllNotes();
             await this.updateUI();
 
-            this.resetActive();
+            this.resetActiveToSort();
             this.setActive('#sort-by-priority-btn'); 
         });
 
@@ -219,7 +215,7 @@ class Controller {
             await this.getAllNotes();
             await this.updateUI();
 
-            this.resetActive();
+            this.resetActiveToSort()
             this.setActive('#sort-by-created-date-btn');
         });
 
@@ -230,7 +226,7 @@ class Controller {
             await this.getAllNotes();
             await this.updateUI();
 
-            this.resetActive();
+            this.resetActiveToSort()
             this.setActive('#sort-by-due-date-btn');
         });
 

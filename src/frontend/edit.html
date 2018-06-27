@@ -10,20 +10,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
     <script id="edit-note" type="text/x-handlebars-template">
         <form id="add-note">
-            <label for="title">Title</label>
-            <input type="text" id="title" name="title" placeholder="Note Title" required />
-            <label for="description">Description</label>
-            <textarea type="text" id="description" name="description"  placeholder="Note Description" required></textarea>
-            <label for="priority">Priority</label>
-            <select name="priority" id="priority" name="priority" required>
+            <label for="title" class="add-note__label--title">Title</label>
+            <input type="text" id="title" class="add-note__input--title" name="title" placeholder="Note Title" required />
+            <label for="description" class="add-note__label--description">Description</label>
+            <textarea type="text" id="description" class="add-note__textarea--description" name="description"  placeholder="Note Description" required></textarea>
+            <label for="priority" class="add-note__label--priority">Priority</label>
+            <select name="priority" id="priority" class="add-note__select--priority" name="priority" required>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
             </select>
-            <label for="date">Due Date</label>
-            <input type="date" id="due-date" name="dueDate" required>
-            <input type="submit" id="save-note" class="add-note__btn" value="Save" />
-            <input type="submit" id="show-notes" class="add-note__btn" value="All Notes" />
+            <label for="date" class="add-note__label--due-date">Due Date</label>
+            <input type="date" id="due-date" class="add-note__input--due-date" name="dueDate" required>
+            <input type="submit" id="save-note" class="add-note__input--save-note add-note__btn" value="Save" />
+            <input type="submit" id="show-notes" class="add-note__input--show-notes add-note__btn" value="Show All" />
         </form>
     </script>
 </head>
