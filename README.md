@@ -1,6 +1,6 @@
 # Note App
 
-Note App with backend and database.
+Note App with backend and database. Style is stored in Local Storage of the Browser.
 
 ## Getting Started
 
